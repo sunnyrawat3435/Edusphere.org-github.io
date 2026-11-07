@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduSphere AI — Inclusive AI Classroom Companion</title>
+    
+    <!-- Design Fonts & System Preloads -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. DESIGN SYSTEM & CSS CUSTOM PROPERTIES
+           ========================================================================== */
+        :root {
+            /* Palette Definition */
+            --color-brand-primary: #0F7B6C;
+            --color-brand-primary-hover: #0B5E52;
+            --color-brand-light: #E1F2EF;
+            --color-brand-accent: #F2B632;
+            --color-brand-accent-hover: #D9A020;
+            
+            --color-neutral-dark: #12263A;
+            --color-neutral-muted: #5B6B7B;
+            --color-neutral-border: #D9E0E6;
+            --color-neutral-bg: #F4F7F9;
+            --color-neutral-surface: #FFFFFF;
+            
+            --color-danger-text: #B3261E;
+            --color-danger-bg: #FCEBEA;
+
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-serif: 'Newsreader', Georgia, serif;
+
+            /* Elevation & Radius */
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+
+            --shadow-sm: 0 1px 3px rgba(18, 38, 58, 0.06), 0 1px 2px rgba(18, 38, 58, 0.04);
+            --shadow-md: 0 4px 12px rgba(18, 38, 58, 0.08), 0 2px 4px rgba(18, 38, 58, 0.04);
+            --shadow-lg: 0 12px 28px rgba(18, 38, 58, 0.12), 0 4px 10px rgba(18, 38, 58, 0.06);
+
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ==========================================================================
+           2. BASE & RESET STYLES
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-sans);
+            color: var(--color-neutral-dark);
+            background-color: var(--color-neutral-bg);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--color-neutral-dark);
+            margin-top: 0;
+        }
+
+        h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); margin-bottom: 0.5em; }
+        h2 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); margin-bottom: 0.6em; }
+        h3 { font-size: 1.25rem; margin-bottom: 0.4em; }
+
+        p { margin-top: 0; margin-bottom: 1em; }
+        a { color: inherit; text-decoration: none; }
+
+        button, input, select, textarea {
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--color-brand-primary);
+            outline-offset: 2px;
+        }
+
+        /* Layout Container Wrapper */
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Decorative Quotes Canvas Background */
+        .ambient-quotes {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .ambient-quote {
+            position: absolute;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.15rem;
+            color: var(--color-neutral-muted);
+            opacity: 0.25;
+            max-width: 260px;
+        }
+
+        .ambient-quote small {
+            display: block;
+            font-family: var(--font-sans);
+            font-style: normal;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        /* ==========================================================================
+           3. UI BUTTON & CONTROL COMPONENTS
+           ========================================================================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.65em 1.35em;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            border: 1.5px solid transparent;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            background-color: var(--color-neutral-dark);
+            color: #ffffff;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn:hover {
+            background-color: #000000;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background-color: var(--color-brand-primary);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-brand-primary-hover);
+        }
+
+        .btn-accent {
+            background-color: var(--color-brand-accent);
+            color: var(--color-neutral-dark);
+        }
+
+        .btn-accent:hover {
+            background-color: var(--color-brand-accent-hover);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--color-neutral-dark);
+            border-color: var(--color-neutral-border);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--color-neutral-surface);
+            border-color: var(--color-neutral-dark);
+        }
+
+        .btn-sm {
+            padding: 0.4em 0.85em;
+            font-size: 0.875rem;
+            border-radius: var(--radius-sm);
+        }
+
+        /* ==========================================================================
+           4. NAVIGATION BAR
+           ========================================================================== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(244, 247, 249, 0.88);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--color-neutral-border);
+        }
+
+        .navbar-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-serif);
+            font-weight: 700;
+            font-size: 1.35rem;
+            color: var(--color-neutral-dark);
+        }
+
+        .brand-logo-icon {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: var(--color-brand-primary);
+            box-shadow: 4px 4px 0 var(--color-brand-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--color-neutral-muted);
+            transition: color var(--transition-fast);
+        }
+
+        .nav-link:hover {
+            color: var(--color-neutral-dark);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+        }
+
+        /* ==========================================================================
+           5. HERO SECTION & PROTOTYPE PREVIEW
+           ========================================================================== */
+        .hero-section {
+            padding: 80px 0 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+        }
+
+        .hero-headline {
+            letter-spacing: -0.02em;
+        }
+
+        .hero-lead {
+            font-size: 1.2rem;
+            color: var(--color-neutral-muted);
+            max-width: 32em;
+            margin-bottom: 28px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        /* Interactive Board Widget Mockup */
+        .interactive-board {
+            background-color: #1A3630;
+            color: #EAF2EE;
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: 0 0 0 8px #7A5C38, var(--shadow-lg);
+            position: relative;
+        }
+
+        .board-tag {
+            display: inline-block;
+            background-color: var(--color-brand-accent);
+            color: var(--color-neutral-dark);
+            padding: 2px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .board-chat-message {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            margin-top: 12px;
+            font-size: 0.92rem;
+            border-left: 3px solid transparent;
+        }
+
+        .board-chat-message.highlight {
+            background-color: rgba(242, 182, 50, 0.18);
+            border-left-color: var(--color-brand-accent);
+        }
+
+        /* Quote Banner Component */
+        .daily-quote-card {
+            margin-top: 32px;
+            padding: 14px 18px;
+            border-left: 3px solid var(--color-brand-primary);
+            background-color: rgba(15, 123, 108, 0.05);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            font-family: var(--font-serif);
+            font-style: italic;
+            color: var(--color-neutral-dark);
+        }
+
+        .daily-quote-card small {
+            display: block;
+            font-family: var(--font-sans);
+            font-style: normal;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--color-neutral-muted);
+            margin-top: 4px;
+        }
+
+        /* ==========================================================================
+           6. CONTENT SECTIONS & FEATURE CARDS
+           ========================================================================== */
+        .section-block {
+            padding: 72px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-block.surface-white {
+            background-color: var(--color-neutral-surface);
+            border-top: 1px solid var(--color-neutral-border);
+            border-bottom: 1px solid var(--color-neutral-border);
+        }
+
+        /* Workflow Steps Component */
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin-top: 36px;
+        }
+
+        .step-item {
+            position: relative;
+            padding-left: 20px;
+            border-left: 3px solid var(--color-brand-primary);
+        }
+
+        .step-item-number {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--color-brand-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        /* Feature Cards Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .card {
+            background-color: var(--color-neutral-surface);
+            border: 1px solid var(--color-neutral-border);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Split Info Layout */
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+
+        @media (max-width: 768px) {
+            .split-layout { grid-template-columns: 1fr; gap: 24px; }
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 16px;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-brand-primary);
+            font-weight: 700;
+        }
+
+        /* CTA Banner */
+        .cta-banner {
+            background-color: var(--color-neutral-dark);
+            color: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 48px 32px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cta-banner h2 { color: #ffffff; }
+        .cta-banner p { color: #C8D3DD; max-width: 36em; margin-left: auto; margin-right: auto; }
+
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            color: var(--color-neutral-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--color-neutral-border);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ==========================================================================
+           7. MODAL DIALOGS & FORMS
+           ========================================================================== */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(18, 38, 58, 0.65);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .modal-backdrop.is-active {
+            display: flex;
+        }
+
+        .modal-container {
+            background-color: var(--color-neutral-surface);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 440px;
+            padding: 32px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tab-switcher {
+            display: flex;
+            gap: 4px;
+            background-color: var(--color-neutral-bg);
+            padding: 4px;
+            border-radius: var(--radius-md);
+            margin: 20px 0;
+        }
+
+        .tab-btn {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--color-neutral-muted);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .tab-btn[aria-selected="true"] {
+            background-color: var(--color-neutral-surface);
+            color: var(--color-neutral-dark);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid var(--color-neutral-border);
+            border-radius: var(--radius-md);
+            background-color: var(--color-neutral-surface);
+            transition: border-color var(--transition-fast);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--color-brand-primary);
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-error {
+            color: var(--color-danger-text);
+            font-size: 0.85rem;
+            margin-top: 6px;
+            min-height: 1.2em;
+        }
+
+        .form-row-two {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            font-weight: 400;
+            cursor: pointer;
+        }
+
+        /* ==========================================================================
+           8. DASHBOARD SYSTEM
+           ========================================================================== */
+        #app-dashboard {
+            display: none;
+            min-height: 100vh;
+            background-color: var(--color-neutral-bg);
+            position: relative;
+            z-index: 10;
+        }
+
+        #app-dashboard.is-active {
+            display: block;
+        }
+
+        .dashboard-header {
+            background-color: var(--color-neutral-dark);
+            color: #ffffff;
+            height: 64px;
+        }
+
+        .dashboard-header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 32px;
+            padding-top: 32px;
+            padding-bottom: 48px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-layout { grid-template-columns: 1fr; }
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .sidebar-btn {
+            text-align: left;
+            border: none;
+            background: transparent;
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--color-neutral-muted);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .sidebar-btn:hover {
+            color: var(--color-neutral-dark);
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        .sidebar-btn.is-active {
+            background-color: var(--color-neutral-surface);
+            color: var(--color-neutral-dark);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Dashboard Components */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card b {
+            display: block;
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .stat-card span {
+            font-size: 0.875rem;
+            color: var(--color-neutral-muted);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .data-table th, .data-table td {
+            text-align: left;
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--color-neutral-border);
+        }
+
+        .data-table th {
+            font-weight: 600;
+            color: var(--color-neutral-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .badge-token {
+            font-family: monospace;
+            background-color: var(--color-neutral-dark);
+            color: #ffffff;
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-pill {
+            background-color: var(--color-brand-light);
+            color: var(--color-brand-primary);
+            border-radius: var(--radius-full);
+            padding: 2px 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Post & Feed Items */
+        .forum-post {
+            background-color: var(--color-neutral-surface);
+            border: 1px solid var(--color-neutral-border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .forum-post.is-flagged {
+            border-color: var(--color-danger-text);
+            background-color: #FFFDFD;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            color: var(--color-neutral-muted);
+            margin-bottom: 10px;
+        }
+
+        .flag-warning {
+            background-color: var(--color-danger-bg);
+            color: var(--color-danger-text);
+            border-radius: var(--radius-sm);
+            padding: 8px 12px;
+            font-size: 0.875rem;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        .forum-reply {
+            border-left: 3px solid var(--color-neutral-border);
+            margin: 12px 0 0 12px;
+            padding: 6px 0 6px 14px;
+        }
+
+        .forum-reply.teacher-reply {
+            border-color: var(--color-brand-primary);
+            background-color: var(--color-brand-light);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 10px 14px;
+        }
+
+        .reply-box {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        /* Dynamic Notification Toast */
+        .toast-notification {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--color-neutral-dark);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 500;
+            box-shadow: var(--shadow-lg);
+            z-index: 2000;
+            display: none;
+        }
+
+        .toast-notification.is-visible {
+            display: block;
+            animation: fadeIn 200ms cubic-bezier(0,0,0.2,1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, 10px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Quotes Background Decoration -->
+    <div class="ambient-quotes" aria-hidden="true">
+        <div class="ambient-quote" style="right: 5%; top: 120px;">
+            "Education is the most powerful weapon which you can use to change the world."
+            <small>— Nelson Mandela</small>
+        </div>
+        <div class="ambient-quote" style="left: 4%; top: 45%;">
+            "Arise, awake, and stop not till the goal is reached."
+            <small>— Swami Vivekananda</small>
+        </div>
+    </div>
+
+    <!-- Public Landing Page Site Container -->
+    <div id="public-site">
+        <header class="navbar">
+            <div class="container navbar-content">
+                <a href="#top" class="brand-logo">
+                    <span class="brand-logo-icon"></span>
+                    EduSphere AI
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#ai-teacher" class="nav-link">AI Teacher</a></li>
+                    <li><a href="#modules" class="nav-link">Modules</a></li>
+                    <li><a href="#security" class="nav-link">Security & Trust</a></li>
+                    <li><a href="#get-started" class="nav-link">Get Started</a></li>
+                </ul>
+                <button class="btn btn-sm btn-outline" data-action="open-login">Sign In</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Hero Banner -->
+            <section class="hero-section" id="top">
+                <div class="container hero-grid">
+                    <div>
+                        <h1 class="hero-headline">No student is invisible. No question goes unheard.</h1>
+                        <p class="hero-lead">A intelligent classroom companion built by students, for students. It notices who is quiet, forms balanced project teams, and gives every doubt a safe place to be asked.</p>
+                        <div class="hero-actions">
+                            <button class="btn btn-accent" data-action="open-login">Sign In or Register</button>
+                            <a href="#get-started" class="btn btn-outline">Explore Features</a>
+                        </div>
+                        <div id="hero-quote-target"></div>
+                    </div>
+
+                    <!-- Live Prototype Sandbox Widget -->
+                    <div class="interactive-board" aria-label="Interactive AI Teacher Dashboard Preview">
+                        <span class="board-tag">Class 8 Mathematics</span>
+                        <h3 style="color: #ffffff; margin-top: 12px;">Pythagorean Theorem</h3>
+                        <div class="board-chat-message">
+                            <strong>AI Companion:</strong> Let's visualize a right-angled triangle. The longest side opposite the right angle is called the hypotenuse (<strong>c</strong>).
+                        </div>
+                        <div class="board-chat-message">
+                            <strong>Student:</strong> Can you explain that again in simpler Hinglish terms?
+                        </div>
+                        <div class="board-chat-message highlight">
+                            ✓ Teacher Approved &bull; Quiz Ready &bull; Voice Narration On
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feature 1: Supervised Learning Workflow -->
+            <section class="section-block surface-white" id="ai-teacher">
+                <div class="container">
+                    <h2>Upload a lesson. The AI teaches. The teacher supervises.</h2>
+                    <p style="color: var(--color-neutral-muted); max-width: 40em;">Our human-in-the-loop architecture ensures AI content is strictly accurate and approved before reaching students.</p>
+                    
+                    <div class="workflow-steps">
+                        <div class="step-item">
+                            <div class="step-item-number">Step 01</div>
+                            <h3>Upload Lesson</h3>
+                            <p>Teachers upload existing PDFs, slides, lesson plans, or handwritten notes.</p>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-item-number">Step 02</div>
+                            <h3>AI Generates</h3>
+                            <p>Generates structured summaries, bilingual audio narration, and practice quizzes.</p>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-item-number">Step 03</div>
+                            <h3>Teacher Review</h3>
+                            <p>Nothing reaches students without explicit sign-off from the class educator.</p>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-item-number">Step 04</div>
+                            <h3>Analytics Recorded</h3>
+                            <p>Student engagement and mastery scores map directly to performance records.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feature 2: Core Platform Modules -->
+            <section class="section-block" id="modules">
+                <div class="container">
+                    <h2>Built for every learner in the classroom.</h2>
+                    <div class="feature-grid">
+                        <div class="card">
+                            <h3>Inclusion Monitor</h3>
+                            <p>Identifies disengaged or quiet students early so educators can provide targeted support.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Project Matchmaker</h3>
+                            <p>Algorithms pair students into balanced project groups based on complementary skill sets.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Learning Pattern Analyzer</h3>
+                            <p>Diagnoses recurring error patterns in homework to suggest personalized interventions.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Curiosity Hub</h3>
+                            <p>An anonymous Q&A forum using cryptographic tokens so students ask questions without fear.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Opportunity Finder</h3>
+                            <p>Automatically matches scholarships, science fairs, and internships to student profiles.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Parent Portal</h3>
+                            <p>Gives parents transparent insights into child progress, verified directly by class teachers.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feature 3: Security & Trust -->
+            <section class="section-block surface-white" id="security">
+                <div class="container split-layout">
+                    <div>
+                        <h2>Trust and safety engineered from the ground up.</h2>
+                        <p style="color: var(--color-neutral-muted);">Data privacy, role boundaries, and respectful interaction form the baseline of our infrastructure.</p>
+                    </div>
+                    <ul class="feature-list">
+                        <li><strong>Strict Role-Based Security:</strong> Students, teachers, and parents access only authorized views.</li>
+                        <li><strong>Audit Trail Logging:</strong> Immutable records track grade modifications and status updates.</li>
+                        <li><strong>School Boundary Isolation:</strong> Student records remain private within institutional boundaries.</li>
+                        <li><strong>Automated Respect Filter:</strong> Curiosity Hub posts are scanned; toxic language unmasks anonymity.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Pricing / Demo CTA -->
+            <section class="section-block" id="get-started">
+                <div class="container">
+                    <div class="cta-banner">
+                        <h2>Start with one classroom. Scale across your institution.</h2>
+                        <p>EduSphere AI runs seamlessly in modern browsers on existing school devices. Zero hardware upgrades required.</p>
+                        <button class="btn btn-accent" id="btn-demo-trigger" style="margin-top: 16px;">Request Institutional Demo</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container">
+                © 2026 EduSphere AI Systems &bull; Crafted by Students of DBRA CM Shri, Sector-17 Rohini, Delhi
+            </div>
+        </footer>
+    </div>
+
+    <!-- Authentication & Portal Selection Modal -->
+    <div class="modal-backdrop" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 id="modal-title" style="margin: 0; font-size: 1.4rem;">Sign In</h2>
+                <button class="btn btn-sm btn-outline" id="btn-close-modal" aria-label="Close dialog">Close</button>
+            </div>
+
+            <!-- Role Selector Tabs -->
+            <div class="tab-switcher" role="tablist" id="role-selector-tabs">
+                <button class="tab-btn" role="tab" data-role="student" aria-selected="true">Student</button>
+                <button class="tab-btn" role="tab" data-role="teacher" aria-selected="false">Teacher</button>
+                <button class="tab-btn" role="tab" data-role="parent" aria-selected="false">Parent</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="form-login" autocomplete="off">
+                <div class="form-group">
+                    <label class="form-label" for="input-login-username" id="label-login-username">Username or Student ID</label>
+                    <input type="text" id="input-login-username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="input-login-password">Password</label>
+                    <input type="password" id="input-login-password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="checkbox-show-password"> Show password
+                    </label>
+                </div>
+                <div class="form-error" id="login-error-message" role="alert"></div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">
+                    Sign In as <span id="portal-role-label">Student</span>
+                </button>
+            </form>
+
+            <!-- Student Registration Form -->
+            <form id="form-register-student" autocomplete="off" style="display: none;">
+                <div class="form-group">
+                    <label class="form-label" for="reg-student-name">Full Student Name</label>
+                    <input type="text" id="reg-student-name" class="form-control" required>
+                </div>
+                <div class="form-row-two">
+                    <div class="form-group">
+                        <label class="form-label" for="reg-student-class">Class Section</label>
+                        <select id="reg-student-class" class="form-control"></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="reg-student-id">Requested Student ID</label>
+                        <input type="text" id="reg-student-id" class="form-control" required placeholder="e.g. s102">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="reg-student-password">Account Password</label>
+                    <input type="password" id="reg-student-password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="reg-parent-id">Parent ID</label>
+                    <input type="text" id="reg-parent-id" class="form-control" required placeholder="e.g. PR4827">
+                    <p style="font-size: 0.8rem; color: var(--color-neutral-muted); margin-top: 4px;">
+                        Your parent generates this ID by registering in the Parent tab.
+                    </p>
+                </div>
+                <div class="form-error" id="student-reg-error" role="alert"></div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit for Verification</button>
+            </form>
+
+            <!-- Teacher Registration Form -->
+            <form id="form-register-teacher" autocomplete="off" style="display: none;">
+                <div class="form-group">
+                    <label class="form-label" for="reg-teacher-name">Full Name with Title</label>
+                    <input type="text" id="reg-teacher-name" class="form-control" placeholder="e.g. Ms. Akriti Gupta" required>
+                </div>
+                <div class="form-row-two">
+                    <div class="form-group">
+                        <label class="form-label" for="reg-teacher-id">Teacher ID</label>
+                        <input type="text" id="reg-teacher-id" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="reg-teacher-password">Password</label>
+                        <input type="password" id="reg-teacher-password" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="reg-teacher-code">School Authorization Code</label>
+                    <input type="password" id="reg-teacher-code" class="form-control" required>
+                </div>
+                <div class="form-error" id="teacher-reg-error" role="alert"></div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Educator Account</button>
+            </form>
+
+            <!-- Parent Registration Form -->
+            <form id="form-register-parent" autocomplete="off" style="display: none;">
+                <div class="form-group">
+                    <label class="form-label" for="reg-parent-name">Parent / Guardian Name</label>
+                    <input type="text" id="reg-parent-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="reg-parent-email">Email Address</label>
+                    <input type="email" id="reg-parent-email" class="form-control" placeholder="name@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="reg-parent-password">Password</label>
+                    <input type="password" id="reg-parent-password" class="form-control" required>
+                </div>
+                <div class="form-error" id="parent-reg-error" role="alert"></div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Generate Parent ID</button>
+            </form>
+
+            <!-- Generated Parent Key Display Container -->
+            <div id="parent-success-display" style="display: none; text-align: center;">
+                <p>Your Parent Account has been established. Unique Parent Key:</p>
+                <div style="margin: 16px 0;">
+                    <span class="badge-token" id="generated-parent-id-target" style="font-size: 1.6rem; padding: 6px 20px;"></span>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--color-neutral-muted);">
+                    Share this key with your child for account creation. You may sign in using this ID or your registered email.
+                </p>
+                <button type="button" class="btn btn-primary" id="btn-proceed-parent-login" style="width: 100%;">Proceed to Sign In</button>
+            </div>
+
+            <!-- Dynamic Toggle Mode Footer Link -->
+            <div id="auth-mode-toggle-container" style="margin-top: 16px; font-size: 0.9rem; text-align: center;"></div>
+        </div>
+    </div>
+
+    <!-- Application Dashboard Interface (Post Auth) -->
+    <div id="app-dashboard">
+        <header class="dashboard-header">
+            <div class="container">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <strong style="font-family: var(--font-serif); font-size: 1.25rem;">EduSphere AI Dashboard</strong>
+                    <span style="opacity: 0.65; font-size: 0.85rem;">| DBRA CM Shri, Sector-17 Rohini</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <div style="text-align: right; font-size: 0.875rem;">
+                        <span id="user-display-name" style="font-weight: 600;"></span><br>
+                        <span id="user-display-role" style="opacity: 0.75; font-size: 0.78rem;"></span>
+                    </div>
+                    <button class="btn btn-sm btn-accent" id="btn-user-logout">Sign Out</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="container dashboard-layout">
+            <aside class="sidebar-nav" id="sidebar-nav-target"></aside>
+            <main id="dashboard-main-target"></main>
+        </div>
+    </div>
+
+    <!-- Toast Notification Engine Target -->
+    <div class="toast-notification" id="toast-target" role="status" aria-live="polite"></div>
+
+    <!-- ==========================================================================
+       9. APPLICATION LOGIC & MODULAR JAVASCRIPT
+       ========================================================================== -->
+    <script>
+        /**
+         * EduSphere AI - Application Architecture
+         * Structured with explicit separation of concern standards.
+         */
+
+        // Utility: DOM Query Shortcut Helpers
+        const getElement = (selector) => document.querySelector(selector);
+        const getAllElements = (selector) => document.querySelectorAll(selector);
+
+        // Utility: String Sanitization to Protect against XSS
+        const escapeHtml = (unsafeString) => {
+            return String(unsafeString).replace(/[&<>"']/g, (match) => {
+                const replacements = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;'
+                };
+                return replacements[match];
+            });
+        };
+
+        // Utility: Cryptographic String Hasher (Front-end Demo Hashing)
+        const generateHash = (inputString) => {
+            let hashA = 0xdeadbeef, hashB = 0x41c6ce57;
+            for (let i = 0; i < inputString.length; i++) {
+                const charCode = inputString.charCodeAt(i);
+                hashA = Math.imul(hashA ^ charCode, 2654435761);
+                hashB = Math.imul(hashB ^ charCode, 1597334677);
+            }
+            hashA = Math.imul(hashA ^ (hashA >>> 16), 2246822507) ^ Math.imul(hashB ^ (hashB >>> 13), 3266489909);
+            hashB = Math.imul(hashB ^ (hashB >>> 16), 2246822507) ^ Math.imul(hashA ^ (hashA >>> 13), 3266489909);
+            return (4294967296 * (2097151 & hashB) + (hashA >>> 0)).toString(36);
+        };
+
+        const hashPassword = (plainPassword) => generateHash('edusphere_salt|' + plainPassword);
+
+        // System Constants & Static Assets
+        const DEFAULT_TEACHER = {
+            id: 'akriti123',
+            role: 'teacher',
+            name: 'Ms. Akriti Gupta',
+            pwh: hashPassword('teacher123')
+        };
+
+        const buildClassSectionArray = (grade, count) => {
+            return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.slice(0, count).split('').map(letter => `${grade}-${letter}`);
+        };
+
+        const DEFAULT_CLASSES = [
+            ...buildClassSectionArray(6, 3),
+            ...buildClassSectionArray(7, 3),
+            ...buildClassSectionArray(8, 3),
+            ...buildClassSectionArray(9, 4),
+            ...buildClassSectionArray(11, 6),
+            ...buildClassSectionArray(12, 3)
+        ];
+
+        const EDUCATIONAL_QUOTES = [
+            ["Arise, awake, and stop not till the goal is reached.", "Swami Vivekananda"],
+            ["Education is the most powerful weapon which you can use to change the world.", "Nelson Mandela"],
+            ["Dream is not that which you see while sleeping, it is that which does not let you sleep.", "A. P. J. Abdul Kalam"],
+            ["The expert in anything was once a beginner.", "Helen Hayes"]
+        ];
+
+        /* ==========================================================================
+           MODERATION MODULE: Content Moderation & Toxic Speech Scanner
+           ========================================================================== */
+        const ContentModerator = {
+            prohibitedTerms: [
+                'stupid', 'idiot', 'dumb', 'moron', 'loser', 'fool', 'ugly', 'trash', 
+                'bastard', 'shit', 'fuck', 'bitch', 'crap', 'damn', 'asshole', 'jerk', 
+                'suck', 'hate you', 'shut up', 'pagal', 'bewakoof', 'gadha', 'kamina', 
+                'harami', 'nalayak'
+            ],
+            shortStrictTerms: new Set(['ass', 'dumb', 'fool', 'suck', 'jerk', 'damn', 'crap']),
+
+            normalizeString(str) {
+                return str.toLowerCase()
+                    .replace(/0/g, 'o')
+                    .replace(/[1!|]/g, 'i')
+                    .replace(/3/g, 'e')
+                    .replace(/[4@]/g, 'a')
+                    .replace(/[5$]/g, 's')
+                    .replace(/7/g, 't');
+            },
+
+            analyzeContent(rawText) {
+                const normalized = this.normalizeString(rawText);
+                let containsViolation = false;
+                const collapsedString = normalized.replace(/[^a-z]/g, '');
+
+                const maskedOutput = rawText.replace(/\S+/g, (word) => {
+                    const cleanedWord = this.normalizeString(word)
+                        .replace(/[^a-z]/g, '')
+                        .replace(/(.)\1{2,}/g, '$1$1');
+                    
+                    const isTermBad = this.prohibitedTerms.some(term => {
+                        if (term.includes(' ')) return false;
+                        return (this.shortStrictTerms.has(term) || term.length < 5) 
+                            ? cleanedWord === term 
+                            : cleanedWord.includes(term);
+                    }) || cleanedWord === 'ass';
+
+                    if (isTermBad) {
+                        containsViolation = true;
+                        return '*'.repeat(word.length);
+                    }
+                    return word;
+                });
+
+                if (!containsViolation) {
+                    if (this.prohibitedTerms.some(term => term.length >= 5 && collapsedString.includes(term.replace(' ', '')))) {
+                        containsViolation = true;
+                    }
+                    if (/\b(hate you|shut up)\b/.test(normalized)) {
+                        containsViolation = true;
+                    }
+                }
+
+                return {
+                    isFlagged: containsViolation,
+                    maskedText: containsViolation && maskedOutput === rawText ? '[Content Hidden by System]' : maskedOutput
+                };
+            }
+        };
+
+        /* ==========================================================================
+           STORAGE MANAGER MODULE: LocalStorage & Persistence Layer
+           ========================================================================== */
+        const STORAGE_KEY = 'edusphere_v3_production';
+        let applicationDB = null;
+
+        const StorageManager = {
+            seedDatabase() {
+                const timestamp = Date.now();
+                return {
+                    classes: [...DEFAULT_CLASSES],
+                    users: [],
+                    posts: [{
+                        id: 1,
+                        token: 'AQ-4821',
+                        cls: '8-B',
+                        text: 'I still do not get why the hypotenuse is always the longest side. Can someone explain it simply?',
+                        author: 'seed1',
+                        authorName: 'Aarav Sharma',
+                        timestamp: timestamp - 7200000,
+                        flagged: false,
+                        replies: [{
+                            id: 1,
+                            author: 'seed2',
+                            authorName: 'Diya Verma',
+                            role: 'student',
+                            cls: '8-B',
+                            text: 'It sits opposite the right angle, and the largest angle always faces the longest side.',
+                            timestamp: timestamp - 3600000,
+                            flagged: false
+                        }]
+                    }]
+                };
+            },
+
+            load() {
+                try {
+                    const storedData = localStorage.getItem(STORAGE_KEY);
+                    if (storedData) {
+                        applicationDB = JSON.parse(storedData);
+                    }
+                } catch (e) {
+                    console.error("Failed to load local storage:", e);
+                }
+
+                if (!applicationDB || !applicationDB.posts || !applicationDB.users) {
+                    applicationDB = this.seedDatabase();
+                }
+                if (!Array.isArray(applicationDB.classes)) {
+                    applicationDB.classes = [...DEFAULT_CLASSES];
+                }
+            },
+
+            save() {
+                try {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(applicationDB));
+                } catch (e) {
+                    console.error("Failed to save local storage state:", e);
+                }
+            }
+        };
+
+        StorageManager.load();
+
+        /* ==========================================================================
+           UI CONTROLLER & APPLICATION STATE
+           ========================================================================== */
+        let currentUser = null;
+        let activeRole = 'student';
+        let activeAuthMode = 'signin';
+        let activeTab = 'home';
+        let activeClassFilter = 'all';
+        let freshlyCreatedParentId = null;
+
+        // UI Toast Engine
+        const showToast = (message) => {
+            const toastElement = getElement('#toast-target');
+            toastElement.textContent = message;
+            toastElement.classList.add('is-visible');
+            clearTimeout(toastElement.timeoutHandle);
+            toastElement.timeoutHandle = setTimeout(() => {
+                toastElement.classList.remove('is-visible');
+            }, 4500);
+        };
+
+        // User Lookup Helpers
+        const findUserById = (userId) => {
+            const cleanId = String(userId || '').trim().toLowerCase();
+            if (cleanId === DEFAULT_TEACHER.id) return DEFAULT_TEACHER;
+            return applicationDB.users.find(u => String(u.id).toLowerCase() === cleanId);
+        };
+
+        const resolveUserName = (userId, fallbackName) => {
+            const user = findUserById(userId);
+            return user ? user.name : (fallbackName || 'Unknown User');
+        };
+
+        const formatTimestamp = (ts) => new Date(ts).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
+
+        const generateQuestionToken = () => {
+            let token;
+            do {
+                token = 'AQ-' + (1000 + Math.floor(Math.random() * 9000));
+            } while (applicationDB.posts.some(p => p.token === token));
+            return token;
+        };
+
+        const generateParentIdKey = () => {
+            let id;
+            do {
+                id = 'PR' + (1000 + Math.floor(Math.random() * 9000));
+            } while (findUserById(id));
+            return id;
+        };
+
+        const linkStudentToParent = (studentObj) => {
+            let parent = applicationDB.users.find(u => u.id === studentObj.parentId && u.role === 'parent');
+            if (parent) {
+                if (!parent.children) parent.children = [];
+                if (!parent.children.includes(studentObj.id)) {
+                    parent.children.push(studentObj.id);
+                    StorageManager.save();
+                }
+            }
+        };
+
+        /* ==========================================================================
+           AUTH & MODAL DIALOG CONTROLLER
+           ========================================================================== */
+        const populateClassSelectOptions = () => {
+            const selectElem = getElement('#reg-student-class');
+            if (!selectElem) return;
+            const sortedClasses = [...applicationDB.classes].sort((a, b) => a.localeCompare(b));
+            selectElem.innerHTML = sortedClasses.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+        };
+
+        const updateAuthModalUI = () => {
+            // Update Tab Selected Indicators
+            getAllElements('#role-selector-tabs button').forEach(btn => {
+                btn.setAttribute('aria-selected', btn.dataset.role === activeRole);
+            });
+
+            getElement('#portal-role-label').textContent = activeRole.charAt(0).toUpperCase() + activeRole.slice(1);
+            
+            // Clear Validation Errors
+            ['login-error-message', 'student-reg-error', 'teacher-reg-error', 'parent-reg-error'].forEach(id => {
+                const elem = getElement('#' + id);
+                if (elem) elem.textContent = '';
+            });
+
+            const isRegistering = activeAuthMode === 'register';
+            const isStudent = activeRole === 'student';
+            const isParent = activeRole === 'parent';
+            const isTeacher = activeRole === 'teacher';
+
+            getElement('#form-login').style.display = isRegistering ? 'none' : 'block';
+            getElement('#form-register-student').style.display = (isRegistering && isStudent) ? 'block' : 'none';
+            getElement('#form-register-teacher').style.display = (isRegistering && isTeacher) ? 'block' : 'none';
+            getElement('#form-register-parent').style.display = (isRegistering && isParent && !freshlyCreatedParentId) ? 'block' : 'none';
+            getElement('#parent-success-display').style.display = (isRegistering && isParent && freshlyCreatedParentId) ? 'block' : 'none';
+
+            if (freshlyCreatedParentId) {
+                getElement('#generated-parent-id-target').textContent = freshlyCreatedParentId.toUpperCase();
+            }
+
+            // Modal Title Configuration
+            const titleElem = getElement('#modal-title');
+            if (!isRegistering) {
+                titleElem.textContent = 'Sign In';
+            } else {
+                titleElem.textContent = isStudent ? 'Student Registration' : (isParent ? 'Parent Account Setup' : 'Educator Account Setup');
+            }
+
+            // Username Label Adjustments
+            getElement('#label-login-username').textContent = isParent ? 'Parent ID or Registered Email' : 'Username or ID';
+
+            // Toggle Mode Text Footer
+            const toggleContainer = getElement('#auth-mode-toggle-container');
+            if (!isRegistering) {
+                toggleContainer.innerHTML = isStudent 
+                    ? `New Student? <button type="button" class="btn-link" data-action="set-mode-reg" style="background:none;border:none;color:var(--color-brand-primary);font-weight:600;cursor:pointer;">Register with Parent ID</button>`
+                    : (isParent 
+                        ? `New Parent? <button type="button" class="btn-link" data-action="set-mode-reg" style="background:none;border:none;color:var(--color-brand-primary);font-weight:600;cursor:pointer;">Create Parent Account</button>`
+                        : `New Educator? <button type="button" class="btn-link" data-action="set-mode-reg" style="background:none;border:none;color:var(--color-brand-primary);font-weight:600;cursor:pointer;">Sign up with School Code</button>`);
+            } else {
+                toggleContainer.innerHTML = `Already have an account? <button type="button" class="btn-link" data-action="set-mode-signin" style="background:none;border:none;color:var(--color-brand-primary);font-weight:600;cursor:pointer;">Sign In</button>`;
+            }
+
+            if (isRegistering && isStudent) populateClassSelectOptions();
+        };
+
+        const openAuthModal = () => {
+            getElement('#auth-modal').classList.add('is-active');
+            updateAuthModalUI();
+        };
+
+        const closeAuthModal = () => {
+            getElement('#auth-modal').classList.remove('is-active');
+        };
+
+        // Auth Form Submissions & Verification Logic
+        getElement('#form-login').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const errTarget = getElement('#login-error-message');
+            const usernameInput = getElement('#input-login-username').value.trim().toLowerCase();
+            const passwordInput = getElement('#input-login-password').value;
+
+            let userObj = findUserById(usernameInput);
+            if (activeRole === 'parent' && (!userObj || userObj.role !== 'parent')) {
+                userObj = applicationDB.users.find(u => u.role === 'parent' && u.email === usernameInput) || userObj;
+            }
+
+            if (!userObj || userObj.role !== activeRole || userObj.pwh !== hashPassword(passwordInput)) {
+                errTarget.textContent = `Invalid credentials for the ${activeRole} portal.`;
+                return;
+            }
+
+            if (userObj.role === 'student' && userObj.status !== 'approved') {
+                errTarget.textContent = userObj.status === 'pending'
+                    ? 'Account pending verification by Ms. Akriti Gupta.'
+                    : 'Account registration was rejected by your class teacher.';
+                return;
+            }
+
+            if (userObj.role === 'student') linkStudentToParent(userObj);
+
+            currentUser = userObj;
+            closeAuthModal();
+            getElement('#form-login').reset();
+            activeTab = 'home';
+            launchDashboard();
+        });
+
+        getElement('#form-register-student').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const errTarget = getElement('#student-reg-error');
+            const studentId = getElement('#reg-student-id').value.trim().toLowerCase();
+            const parentIdKey = getElement('#reg-parent-id').value.trim().toLowerCase();
+
+            if (findUserById(studentId)) {
+                errTarget.textContent = 'Requested Student ID is already registered.';
+                return;
+            }
+
+            const parentUser = findUserById(parentIdKey);
+            if (!parentUser || parentUser.role !== 'parent') {
+                errTarget.textContent = 'Parent ID not found. Ensure your parent registers first.';
+                return;
+            }
+
+            const newStudent = {
+                id: studentId,
+                role: 'student',
+                name: getElement('#reg-student-name').value.trim(),
+                cls: getElement('#reg-student-class').value,
+                pwh: hashPassword(getElement('#reg-student-password').value),
+                parentId: parentUser.id,
+                parentName: parentUser.name,
+                status: 'pending',
+                timestamp: Date.now()
+            };
+
+            applicationDB.users.push(newStudent);
+            StorageManager.save();
+            getElement('#form-register-student').reset();
+            activeAuthMode = 'signin';
+            updateAuthModalUI();
+            showToast('Registration submitted! Awaiting verification by Ms. Akriti Gupta.');
+        });
+
+        getElement('#form-register-teacher').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const errTarget = getElement('#teacher-reg-error');
+            const teacherId = getElement('#reg-teacher-id').value.trim().toLowerCase();
+            const authCode = getElement('#reg-teacher-code').value.trim();
+
+            if (hashPassword(authCode) !== hashPassword('2026')) {
+                errTarget.textContent = 'Invalid School Authorization Code.';
+                return;
+            }
+            if (findUserById(teacherId)) {
+                errTarget.textContent = 'Teacher ID is already registered.';
+                return;
+            }
+
+            const newTeacher = {
+                id: teacherId,
+                role: 'teacher',
+                name: getElement('#reg-teacher-name').value.trim(),
+                pwh: hashPassword(getElement('#reg-teacher-password').value),
+                timestamp: Date.now()
+            };
+
+            applicationDB.users.push(newTeacher);
+            StorageManager.save();
+            getElement('#form-register-teacher').reset();
+            activeAuthMode = 'signin';
+            updateAuthModalUI();
+            showToast('Teacher account created successfully. You may now sign in.');
+        });
+
+        getElement('#form-register-parent').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const errTarget = getElement('#parent-reg-error');
+            const email = getElement('#reg-parent-email').value.trim().toLowerCase();
+
+            if (applicationDB.users.some(u => u.role === 'parent' && u.email === email)) {
+                errTarget.textContent = 'An account with this email address already exists.';
+                return;
+            }
+
+            const newId = generateParentIdKey();
+            const newParent = {
+                id: newId.toLowerCase(),
+                role: 'parent',
+                name: getElement('#reg-parent-name').value.trim(),
+                email: email,
+                pwh: hashPassword(getElement('#reg-parent-password').value),
+                children: [],
+                timestamp: Date.now()
+            };
+
+            applicationDB.users.push(newParent);
+            StorageManager.save();
+            getElement('#form-register-parent').reset();
+            freshlyCreatedParentId = newId;
+            updateAuthModalUI();
+        });
+
+        getElement('#btn-proceed-parent-login').onclick = () => {
+            const generatedId = freshlyCreatedParentId;
+            freshlyCreatedParentId = null;
+            activeAuthMode = 'signin';
+            updateAuthModalUI();
+            getElement('#input-login-username').value = generatedId.toUpperCase();
+            getElement('#input-login-password').focus();
+        };
+
+        /* ==========================================================================
+           DASHBOARD RENDER ENGINE
+           ========================================================================== */
+        const countPendingVerification = () => applicationDB.users.filter(u => u.role === 'student' && u.status === 'pending').length;
+
+        const launchDashboard = () => {
+            getElement('#public-site').style.display = 'none';
+            getElement('#app-dashboard').classList.add('is-active');
+
+            getElement('#user-display-name').textContent = currentUser.name;
+            getElement('#user-display-role').textContent = currentUser.role === 'student'
+                ? `Student • Class ${currentUser.cls}`
+                : (currentUser.role === 'teacher' ? 'Class Teacher' : `Parent Portal (ID: ${currentUser.id.toUpperCase()})`);
+
+            // Build Sidebar Items
+            const pendingCount = countPendingVerification();
+            const navigationMap = {
+                student: [['home', 'My Lessons'], ['curiosity', 'Curiosity Hub']],
+                teacher: [
+                    ['home', 'Overview'],
+                    ['verify', `Verify Students ${pendingCount ? `(${pendingCount})` : ''}`],
+                    ['classes', 'Classes & Sections'],
+                    ['parents', 'Parent Directory'],
+                    ['curiosity', 'Curiosity Hub']
+                ],
+                parent: [['home', 'My Children'], ['notices', 'Conduct Notices']]
+            };
+
+            const sidebarTarget = getElement('#sidebar-nav-target');
+            sidebarTarget.innerHTML = navigationMap[currentUser.role].map(([key, label]) => `
+                <button class="sidebar-btn ${key === activeTab ? 'is-active' : ''}" data-tab="${key}">${escapeHtml(label)}</button>
+            `).join('');
+
+            renderDashboardContent();
+        };
+
+        const renderDashboardContent = () => {
+            const mainTarget = getElement('#dashboard-main-target');
+            let contentHTML = '';
+
+            // Student View: Lessons
+            if (currentUser.role === 'student' && activeTab === 'home') {
+                const askedCount = applicationDB.posts.filter(p => p.author === currentUser.id).length;
+                const answeredCount = applicationDB.posts.reduce((acc, p) => acc + p.replies.filter(r => r.author === currentUser.id).length, 0);
+
+                contentHTML = `
+                    <h2>Welcome Back, ${escapeHtml(currentUser.name.split(' ')[0])}.</h2>
+                    <div class="stat-grid">
+                        <div class="card stat-card"><b>Class ${escapeHtml(currentUser.cls)}</b><span>Assigned Section</span></div>
+                        <div class="card stat-card"><b>${askedCount}</b><span>Questions Asked</span></div>
+                        <div class="card stat-card"><b>${answeredCount}</b><span>Classmates Helped</span></div>
+                    </div>
+                    <div class="card">
+                        <h3>Assigned Modules</h3>
+                        <table class="data-table">
+                            <thead><tr><th>Module Topic</th><th>Status</th><th>Mastery Quiz</th></tr></thead>
+                            <tbody>
+                                <tr><td>Pythagorean Theorem</td><td><span class="badge-pill">Approved</span></td><td>86%</td></tr>
+                                <tr><td>Quadratic Equations</td><td><span class="badge-pill" style="background:#FFF7E0;color:#B45309">Analyzing</span></td><td>Pending</td></tr>
+                                <tr><td>Linear Functions</td><td><span class="badge-pill" style="background:var(--color-neutral-bg);color:var(--color-neutral-muted)">Draft</span></td><td>Pending</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            } 
+            // Teacher View: Overview
+            else if (currentUser.role === 'teacher' && activeTab === 'home') {
+                const pendingCount = countPendingVerification();
+                const unrepliedCount = applicationDB.posts.filter(p => !p.replies.some(r => r.role === 'teacher')).length;
+                const flaggedCount = applicationDB.posts.filter(p => p.flagged).length + applicationDB.posts.reduce((acc, p) => acc + p.replies.filter(r => r.flagged).length, 0);
+
+                contentHTML = `
+                    <h2>Educator Overview</h2>
+                    <div class="stat-grid">
+                        <div class="card stat-card"><b style="${pendingCount ? 'color:var(--color-brand-primary)' : ''}">${pendingCount}</b><span>Pending Approvals</span></div>
+                        <div class="card stat-card"><b>${unrepliedCount}</b><span>Unanswered Questions</span></div>
+                        <div class="card stat-card"><b style="${flaggedCount ? 'color:var(--color-danger-text)' : ''}">${flaggedCount}</b><span>Flagged Messages</span></div>
+                        <div class="card stat-card"><b>${applicationDB.classes.length}</b><span>Active Sections</span></div>
+                    </div>
+                `;
+            }
+            // Teacher View: Verification Workflow
+            else if (currentUser.role === 'teacher' && activeTab === 'verify') {
+                const pendingStudents = applicationDB.users.filter(u => u.role === 'student' && u.status === 'pending');
+                contentHTML = `
+                    <h2>Verify Student Accounts</h2>
+                    <p style="color:var(--color-neutral-muted)">Cross-examine registrations against institutional rosters before authorizing portal access.</p>
+                `;
+
+                if (pendingStudents.length === 0) {
+                    contentHTML += `<div class="card"><p style="margin:0;color:var(--color-neutral-muted)">No student registrations are currently awaiting verification.</p></div>`;
+                } else {
+                    contentHTML += pendingStudents.map(s => `
+                        <div class="card" style="margin-bottom:16px;">
+                            <div class="post-meta">
+                                <span class="badge-pill">Class ${escapeHtml(s.cls)}</span>
+                                <span>Submitted ${formatTimestamp(s.timestamp)}</span>
+                            </div>
+                            <table class="data-table">
+                                <tr><th>Student Name</th><td>${escapeHtml(s.name)} (ID: <strong>${escapeHtml(s.id)}</strong>)</td></tr>
+                                <tr><th>Parent Name</th><td>${escapeHtml(s.parentName)} (Parent ID: <strong>${escapeHtml(String(s.parentId).toUpperCase())}</strong>)</td></tr>
+                            </table>
+                            <div style="display:flex;gap:10px;margin-top:16px;">
+                                <button class="btn btn-sm btn-primary" data-action="approve-student" data-id="${escapeHtml(s.id)}">Approve Registration</button>
+                                <button class="btn btn-sm btn-outline" data-action="reject-student" data-id="${escapeHtml(s.id)}">Reject</button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+            // Curiosity Hub Q&A Forum Component
+            else if (activeTab === 'curiosity') {
+                contentHTML = `
+                    <h2>Curiosity Hub Anonymous Q&A</h2>
+                    <div style="background-color:#FFF7E0;border:1px solid var(--color-brand-accent);border-radius:var(--radius-md);padding:14px;margin-bottom:20px;font-size:0.9rem;">
+                        <strong>Respectful Interaction Policy:</strong> Questions remain completely anonymous under a cryptographic token unless abusive language is detected. Offending submissions automatically reveal identity to teachers and parents.
+                    </div>
+                `;
+
+                if (currentUser.role === 'student') {
+                    contentHTML += `
+                        <div class="card" style="margin-bottom:24px;">
+                            <h3>Ask an Anonymous Question</h3>
+                            <div class="form-group">
+                                <label class="form-label" for="input-forum-question">Your Question (Visible to Class ${escapeHtml(currentUser.cls)} & Teacher)</label>
+                                <textarea id="input-forum-question" class="form-control" maxlength="500" placeholder="State your academic doubt clearly..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="checkbox-forum-agree"> I understand my identity will be unmasked if I use offensive speech.
+                                </label>
+                            </div>
+                            <button class="btn btn-primary" id="btn-submit-question">Post Anonymously</button>
+                        </div>
+                    `;
+                }
+
+                const visiblePosts = applicationDB.posts
+                    .filter(p => currentUser.role === 'student' ? p.cls === currentUser.cls : (activeClassFilter === 'all' || p.cls === activeClassFilter))
+                    .sort((a, b) => b.timestamp - a.timestamp);
+
+                contentHTML += visiblePosts.map(post => {
+                    const isFlagged = post.flagged;
+                    const authorDisplayName = escapeHtml(resolveUserName(post.author, post.authorName));
+                    
+                    return `
+                        <article class="forum-post ${isFlagged ? 'is-flagged' : ''}">
+                            <div class="post-meta">
+                                <span class="badge-token">${post.token}</span>
+                                ${isFlagged ? `<strong style="color:var(--color-danger-text)">${authorDisplayName}</strong>` : '<span>Anonymous Student</span>'}
+                                <span class="badge-pill">Class ${escapeHtml(post.cls)}</span>
+                                <span>${formatTimestamp(post.timestamp)}</span>
+                            </div>
+                            <p style="margin:0;">${escapeHtml(isFlagged ? post.maskedText : post.text)}</p>
+                            ${isFlagged ? `<div class="flag-warning">⚠ Toxic content detected. Anonymity automatically revoked. Posted by ${authorDisplayName}.</div>` : ''}
+                            
+                            <!-- Replies rendering -->
+                            ${post.replies.map(r => `
+                                <div class="forum-reply ${r.role === 'teacher' ? 'teacher-reply' : ''}">
+                                    <div class="post-meta">
+                                        <span class="badge-pill">${r.role === 'teacher' ? 'Educator Reply' : 'Student Reply'}</span>
+                                        <span>${formatTimestamp(r.timestamp)}</span>
+                                    </div>
+                                    <p style="margin:0;">${escapeHtml(r.flagged ? r.maskedText : r.text)}</p>
+                                </div>
+                            `).join('')}
+
+                            <div class="reply-box">
+                                <input type="text" class="form-control" placeholder="Write a response..." data-reply-input="${post.id}">
+                                <button class="btn btn-sm btn-outline" data-action="submit-reply" data-post-id="${post.id}">Reply</button>
+                            </div>
+                        </article>
+                    `;
+                }).join('');
+            } else {
+                contentHTML = `<h2>Dashboard View</h2><div class="card"><p>Selected view is under active development.</p></div>`;
+            }
+
+            mainTarget.innerHTML = contentHTML;
+        };
+
+        /* ==========================================================================
+           10. EVENT DELEGATION & ACTION HANDLERS
+           ========================================================================== */
+        
+        // Global Action Event Listener
+        document.addEventListener('click', (e) => {
+            const target = e.target;
+            const action = target.dataset.action || target.closest('[data-action]')?.dataset.action;
+
+            if (action === 'open-login') {
+                openAuthModal();
+            } else if (action === 'set-mode-reg') {
+                activeAuthMode = 'register';
+                updateAuthModalUI();
+            } else if (action === 'set-mode-signin') {
+                activeAuthMode = 'signin';
+                updateAuthModalUI();
+            } else if (action === 'approve-student') {
+                const studentId = target.dataset.id;
+                const student = applicationDB.users.find(u => u.id === studentId);
+                if (student) {
+                    student.status = 'approved';
+                    linkStudentToParent(student);
+                    StorageManager.save();
+                    showToast(`Verified ${student.name}'s account.`);
+                    launchDashboard();
+                }
+            } else if (action === 'reject-student') {
+                const studentId = target.dataset.id;
+                const student = applicationDB.users.find(u => u.id === studentId);
+                if (student) {
+                    student.status = 'rejected';
+                    StorageManager.save();
+                    showToast(`Rejected ${student.name}'s account.`);
+                    launchDashboard();
+                }
+            } else if (action === 'submit-reply') {
+                const postId = target.dataset.postId;
+                const inputElem = getElement(`[data-reply-input="${postId}"]`);
+                const replyText = inputElem.value.trim();
+
+                if (!replyText) {
+                    showToast('Please type a reply before submitting.');
+                    return;
+                }
+
+                const post = applicationDB.posts.find(p => p.id == postId);
+                const analysis = ContentModerator.analyzeContent(replyText);
+
+                post.replies.push({
+                    id: Date.now(),
+                    author: currentUser.id,
+                    authorName: currentUser.name,
+                    role: currentUser.role,
+                    cls: currentUser.cls || '',
+                    text: replyText,
+                    maskedText: analysis.maskedText,
+                    flagged: analysis.isFlagged,
+                    timestamp: Date.now()
+                });
+
+                StorageManager.save();
+                showToast(analysis.isFlagged ? 'Offensive speech detected. Anonymity revoked.' : 'Reply posted.');
+                renderDashboardContent();
+            }
+        });
+
+        // Tab Switching in Auth Modal
+        getElement('#role-selector-tabs').addEventListener('click', (e) => {
+            if (e.target.dataset.role) {
+                activeRole = e.target.dataset.role;
+                freshlyCreatedParentId = null;
+                updateAuthModalUI();
+            }
+        });
+
+        // Sidebar Navigation Delegate
+        getElement('#sidebar-nav-target').addEventListener('click', (e) => {
+            const btn = e.target.closest('.sidebar-btn');
+            if (btn && btn.dataset.tab) {
+                activeTab = btn.dataset.tab;
+                launchDashboard();
+            }
+        });
+
+        // Curiosity Hub Post Question Submission
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'btn-submit-question') {
+                const questionInput = getElement('#input-forum-question');
+                const agreementCheckbox = getElement('#checkbox-forum-agree');
+                const rawText = questionInput.value.trim();
+
+                if (rawText.length < 10) {
+                    showToast('Question must be at least 10 characters long.');
+                    return;
+                }
+                if (!agreementCheckbox.checked) {
+                    showToast('You must accept the respect policy before posting.');
+                    return;
+                }
+
+                const analysis = ContentModerator.analyzeContent(rawText);
+                const newPost = {
+                    id: Date.now(),
+                    token: generateQuestionToken(),
+                    cls: currentUser.cls,
+                    text: rawText,
+                    author: currentUser.id,
+                    authorName: currentUser.name,
+                    timestamp: Date.now(),
+                    flagged: analysis.isFlagged,
+                    maskedText: analysis.maskedText,
+                    replies: []
+                };
+
+                applicationDB.posts.push(newPost);
+                StorageManager.save();
+                showToast(analysis.isFlagged ? 'Offensive language detected. Identity unmasked.' : `Question posted! Token: ${newPost.token}`);
+                renderDashboardContent();
+            }
+        });
+
+        // Modal Close and Logout Controls
+        getElement('#btn-close-modal').onclick = closeAuthModal;
+        getElement('#btn-user-logout').onclick = () => {
+            currentUser = null;
+            getElement('#app-dashboard').classList.remove('is-active');
+            getElement('#public-site').style.display = 'block';
+            window.scrollTo(0, 0);
+        };
+
+        // Institutional Demo Trigger
+        getElement('#btn-demo-trigger').onclick = () => {
+            showToast('Institutional demo request registered. Our team will contact your school administrator.');
+        };
+
+        // Initialize Dynamic Quote Banner
+        const renderHeroQuote = () => {
+            const selectedQuote = EDUCATIONAL_QUOTES[new Date().getDate() % EDUCATIONAL_QUOTES.length];
+            getElement('#hero-quote-target').innerHTML = `
+                <div class="daily-quote-card">
+                    “${selectedQuote[0]}”
+                    <small>— ${selectedQuote[1]}</small>
+                </div>
+            `;
+        };
+
+        // Initial Runtime Execution
+        window.onload = () => {
+            renderHeroQuote();
+        };
+    </script>
+</body>
+</html>

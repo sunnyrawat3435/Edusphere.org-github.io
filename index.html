@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EduSphere AI: no student is invisible</title>
+<meta name="description" content="EduSphere AI is a classroom companion for schools: an anonymous question hub, teacher-verified student and parent accounts, and tools that make sure no student is left out.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#0F7B6C">
+<link rel="canonical" href="https://sunnyrawat3435.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%93%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="EduSphere AI">
+<meta property="og:title" content="EduSphere AI: no student is invisible">
+<meta property="og:description" content="Anonymous questions, verified accounts for students, parents and teachers, and support for every kind of learner.">
+<meta property="og:url" content="https://sunnyrawat3435.github.io/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EduSphere AI: no student is invisible">
+<meta name="twitter:description" content="A classroom companion that gives every doubt a safe place to be asked.">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"EduSphere AI","url":"https://sunnyrawat3435.github.io/"},{"@type":"SoftwareApplication","name":"EduSphere AI","applicationCategory":"EducationalApplication","operatingSystem":"Web browser","description":"A classroom companion with an anonymous Curiosity Hub, teacher-verified accounts for students and parents, and editable classes and sections.","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"}},{"@type":"EducationalOrganization","name":"DBRA CM Shri School","address":{"@type":"PostalAddress","addressLocality":"Rohini, Sector-17","addressRegion":"Delhi","addressCountry":"IN"}}]}</script>
+<style>
+:root{--ink:#12263A;--mut:#5B6B7B;--bg:#F3F5F7;--card:#fff;--line:#D9E0E6;--teal:#0F7B6C;--teal2:#E1F2EF;--gold:#F2B632;--red:#B3261E;--red2:#FCEBEA;--r:10px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#EEF4F9 linear-gradient(rgba(15,123,108,.08) 1px,transparent 1px) 0 0/100% 34px}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.15;margin:0 0 .5em;font-weight:700}
+h1{font-size:clamp(2.2rem,5vw,3.6rem)}h2{font-size:clamp(1.6rem,3vw,2.2rem)}h3{font-size:1.15rem}
+p{margin:0 0 1em}a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.btn{display:inline-block;border:0;border-radius:8px;padding:.65em 1.2em;font-weight:600;cursor:pointer;background:var(--ink);color:#fff;text-decoration:none}
+.btn.alt{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn.gold{background:var(--gold);color:var(--ink)}
+.btn.sm{padding:.4em .9em;font-size:.9rem}
+nav{position:sticky;top:0;z-index:5;background:rgba(243,245,247,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:22px;height:62px}
+.logo{font-family:Georgia,serif;font-weight:700;font-size:1.25rem;text-decoration:none;margin-right:auto}
+.logo i{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--teal);box-shadow:5px 4px 0 var(--gold);margin-right:10px}
+nav a.l{text-decoration:none;color:var(--mut);font-size:.95rem}
+nav a.l:hover{color:var(--ink)}
+@media(max-width:720px){nav a.l{display:none}}
+.hero{padding:64px 0 48px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr}}
+.hero p.lead{font-size:1.15rem;color:var(--mut);max-width:34em}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.board{background:#1F3D36;color:#EAF2EE;border-radius:14px;padding:22px;box-shadow:0 0 0 6px #8A6B43}
+.board h3{color:#fff}.board .chat{background:rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;margin-top:10px;font-size:.93rem}
+.board .tag{display:inline-block;background:var(--gold);color:var(--ink);border-radius:20px;padding:1px 10px;font-size:.78rem;font-weight:700}
+section.s{padding:56px 0}section.s.w{background:rgba(255,255,255,.82);border-block:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+.steps div{counter-increment:s;border-left:4px solid var(--teal);padding:2px 0 2px 16px}
+.steps div:before{content:"Step " counter(s);display:block;color:var(--teal);font-weight:700;font-size:.85rem}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:36px}
+@media(max-width:760px){.split{grid-template-columns:1fr}}
+.sec li{margin-bottom:.6em}
+.price{background:var(--ink);color:#fff;border-radius:16px;padding:36px;text-align:center}
+.price p{color:#C8D3DD;max-width:36em;margin-inline:auto}
+footer{padding:28px 0;color:var(--mut);font-size:.9rem;text-align:center}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(18,38,58,.6);display:none;align-items:center;justify-content:center;padding:16px;z-index:20}
+.modal.on{display:flex}
+.box{background:#fff;border-radius:14px;width:100%;max-width:420px;padding:26px;max-height:94vh;overflow:auto}
+.tabs{display:flex;gap:6px;background:var(--bg);padding:4px;border-radius:10px;margin:14px 0}
+.tabs button{flex:1;border:0;background:transparent;border-radius:7px;padding:.5em;cursor:pointer;font-weight:600;color:var(--mut)}
+.tabs button[aria-selected=true]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.15)}
+label{display:block;font-weight:600;font-size:.9rem;margin:12px 0 4px}
+input[type=text],input[type=password],textarea,select{width:100%;border:1.5px solid var(--line);border-radius:8px;padding:.6em .75em;background:#fff}
+textarea{min-height:90px;resize:vertical}
+.err{color:var(--red);font-size:.9rem;min-height:1.3em;margin-top:8px}
+.demo{background:var(--teal2);border-radius:8px;padding:10px 12px;font-size:.85rem;margin-top:14px}
+.demo button{background:none;border:0;padding:0;color:var(--teal);text-decoration:underline;cursor:pointer;font-size:inherit}
+/* app */
+#app{display:none;min-height:100vh}
+#app.on{display:block}
+.top{background:var(--ink);color:#fff}
+.top .wrap{display:flex;align-items:center;gap:14px;height:60px}
+.top .who{margin-left:auto;font-size:.92rem;text-align:right}
+.top .btn{background:var(--gold);color:var(--ink)}
+.layout{display:grid;grid-template-columns:200px 1fr;gap:24px;padding:26px 0}
+@media(max-width:720px){.layout{grid-template-columns:1fr}}
+.side{display:flex;flex-direction:column;gap:6px}
+@media(max-width:720px){.side{flex-direction:row;flex-wrap:wrap}}
+.side button{text-align:left;border:0;background:transparent;padding:.6em .8em;border-radius:8px;cursor:pointer;font-weight:600;color:var(--mut)}
+.side button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:20px}
+.stat b{display:block;font:700 1.9rem Georgia,serif}.stat span{color:var(--mut);font-size:.9rem}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+.rules{background:#FFF7E0;border:1px solid var(--gold);border-radius:var(--r);padding:14px 16px;margin-bottom:18px;font-size:.93rem}
+.post{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.post.fl{border-color:var(--red);background:#FFFDFD}
+.meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:.85rem;color:var(--mut);margin-bottom:6px}
+.tok{font-family:ui-monospace,Menlo,monospace;background:var(--ink);color:#fff;border-radius:6px;padding:1px 8px;font-weight:700}
+.pill{background:var(--teal2);color:var(--teal);border-radius:20px;padding:1px 10px;font-weight:600}
+.flag{background:var(--red2);color:var(--red);border-radius:8px;padding:8px 10px;font-size:.9rem;margin-top:8px}
+.masked{color:var(--mut);font-style:italic}
+.rep{border-left:3px solid var(--line);margin:10px 0 0 6px;padding:4px 0 4px 12px}
+.rep.t{border-color:var(--teal);background:var(--teal2);border-radius:0 8px 8px 0}
+.rep.fl{border-color:var(--red)}
+.rf{display:flex;gap:8px;margin-top:12px}
+.rf input{flex:1}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:10px;z-index:30;display:none;max-width:90vw}
+.toast.on{display:block}
+.ck{display:flex;gap:8px;align-items:flex-start;font-weight:400;margin:10px 0}
+.ck input{margin-top:5px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+#site,#app{position:relative;z-index:1}
+.deco{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.deco svg{position:absolute;bottom:0;opacity:.55}
+.deco q{position:absolute;font:italic 1.3rem/1.35 Georgia,serif;max-width:250px;opacity:.5;quotes:none}
+.deco q small,.qt small{display:block;font:600 .8rem system-ui;font-style:normal;margin-top:4px}
+.qt{font:italic 1.2rem/1.4 Georgia,serif;opacity:.5;max-width:30em;margin:0 0 18px}
+.mut{color:var(--mut)}
+.crow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 0;border-bottom:1px solid var(--line)}.crow input{width:84px;padding:.4em .6em}.crow .n{margin-left:auto;font-size:.85rem;color:var(--mut)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#modeRow button{background:none;border:0;padding:0;color:var(--teal);text-decoration:underline;cursor:pointer;font:inherit;font-weight:600}
+@media(max-width:720px){.deco svg,.deco q{display:none}.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="deco" aria-hidden="true">
+<q style="right:4%;top:90px">Education is the most powerful weapon which you can use to change the world.<small>Nelson Mandela</small></q>
+<q style="left:3%;top:46%">Arise, awake, and stop not till the goal is reached.<small>Swami Vivekananda</small></q>
+<svg style="left:2%" width="200" height="150" viewBox="0 0 200 150"><rect x="10" y="108" width="176" height="32" rx="4" fill="#0F7B6C"/><rect x="26" y="108" width="6" height="32" fill="#fff" opacity=".6"/><rect x="24" y="74" width="150" height="32" rx="4" fill="#F2B632"/><rect x="40" y="74" width="6" height="32" fill="#fff" opacity=".6"/><rect x="6" y="42" width="160" height="30" rx="4" fill="#12263A"/><rect x="22" y="42" width="6" height="30" fill="#fff" opacity=".6"/></svg>
+<svg style="right:2%" width="230" height="130" viewBox="0 0 230 130"><path d="M10 40Q62 18 115 40V118Q62 96 10 118Z" fill="#fff" stroke="#12263A" stroke-width="4"/><path d="M115 40Q168 18 220 40V118Q168 96 115 118Z" fill="#fff" stroke="#12263A" stroke-width="4"/><path d="M28 60Q62 48 98 60M28 76Q62 64 98 76M28 92Q62 80 98 92M132 60Q168 48 202 60M132 76Q168 64 202 76M132 92Q168 80 202 92" stroke="#0F7B6C" stroke-width="3" fill="none"/></svg>
+</div>
+
+<div id="site">
+<nav><div class="wrap">
+  <a class="logo" href="#top"><i></i>EduSphere AI</a>
+  <a class="l" href="#teacher">AI Teacher</a><a class="l" href="#modules">Modules</a><a class="l" href="#security">Security</a><a class="l" href="#pricing">Get started</a>
+  <button class="btn sm" data-open-login>Sign in</button>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <div>
+    <h1>No student is invisible. No question goes unheard.</h1>
+    <p class="lead">A classroom companion built by students, for students. It notices who is quiet, forms balanced project teams, and gives every doubt a safe place to be asked.</p>
+    <div class="row"><button class="btn gold" data-open-login>Sign in or register</button><a class="btn alt" href="#pricing">Get started</a></div><div id="heroQ" style="margin-top:26px"></div>
+  </div>
+  <div class="board" aria-label="AI Teacher preview">
+    <span class="tag">Class 8 Mathematics</span>
+    <h3 style="margin-top:10px">Pythagorean Theorem</h3>
+    <div class="chat">Chalo, ek right triangle sochte hain. The longest side is the hypotenuse, called <b>c</b>.</div>
+    <div class="chat">Student: Can you explain that again in Hinglish?</div>
+    <div class="chat" style="background:rgba(242,182,50,.25)">Teacher approved · Quiz ready · Narration on</div>
+  </div>
+</div></header>
+<main>
+
+<section class="s w" id="teacher"><div class="wrap">
+  <h2>Upload a lesson. The AI teaches. The teacher supervises.</h2>
+  <div class="steps">
+    <div><h3>Upload</h3>PDF, slides, Word files, images or a lesson plan.</div>
+    <div><h3>AI builds</h3>Narration, visuals, student Q&amp;A and a quiz.</div>
+    <div><h3>Teacher approves</h3>Nothing reaches students until it is signed off.</div>
+    <div><h3>Everything recorded</h3>Scores and feedback land in the student record.</div>
+  </div>
+</div></section>
+
+<section class="s" id="modules"><div class="wrap">
+  <h2>Support for every kind of learner.</h2>
+  <div class="grid">
+    <div class="card"><h3>Inclusion Monitor</h3>Spots students who may feel left out or are not taking part, so teachers can step in early.</div>
+    <div class="card"><h3>Project Matchmaker</h3>Forms balanced teams from skills, interests and past teamwork in seconds.</div>
+    <div class="card"><h3>Learning Pattern Analyzer</h3>Shows why mistakes repeat and suggests ways to improve.</div>
+    <div class="card"><h3>Curiosity Hub</h3>Students ask anonymously with a token number. Classmates and teachers answer.</div>
+    <div class="card"><h3>Opportunity Finder</h3>Matches scholarships, competitions and internships to each student.</div>
+    <div class="card"><h3>Parent portal</h3>Parents see their children, verified by the class teacher.</div>
+  </div>
+</div></section>
+
+<section class="s w sec" id="security"><div class="wrap split">
+  <div><h2>Trust is built in.</h2><p style="color:var(--mut)">Access rules, history and review are part of the foundation.</p></div>
+  <ul>
+    <li><b>Role-based access.</b> Students, teachers and parents each see only what their role allows.</li>
+    <li><b>Audit trail.</b> Grades, payments and approvals record who changed what, and when.</li>
+    <li><b>School boundaries.</b> One school's records never reach another's.</li>
+    <li><b>Respect rules.</b> Curiosity Hub posts are scanned. Offensive language removes the anonymity.</li>
+  </ul>
+</div></section>
+
+<section class="s" id="pricing"><div class="wrap"><div class="price">
+  <h2>Start with one class. Grow to the whole school.</h2>
+  <p>EduSphere AI runs in a web browser on the computers and tablets your school already has. Teachers need about 15 to 20 minutes of training.</p>
+  <button class="btn gold" id="demoBtn">Book a demo</button>
+</div></div></section>
+</main>
+<footer>© 2026 EduSphere AI · Made by students of DBRA CM Shri, Sector-17 Rohini, Delhi</footer>
+</div>
+
+<!-- Login -->
+<div class="modal" id="login" role="dialog" aria-modal="true" aria-labelledby="lt"><div class="box">
+  <div class="row" style="justify-content:space-between;align-items:center"><h2 id="lt" style="margin:0;font-size:1.5rem">Sign in</h2><button class="btn alt sm" id="closeLogin" aria-label="Close">Close</button></div>
+  <div class="tabs" role="tablist" id="roleTabs">
+    <button role="tab" data-role="student" aria-selected="true">Student</button>
+    <button role="tab" data-role="teacher" aria-selected="false">Teacher</button>
+    <button role="tab" data-role="parent" aria-selected="false">Parent</button>
+  </div>
+  <form id="lf" autocomplete="off">
+    <label for="u" id="ul">Username</label><input type="text" id="u" required>
+    <label for="p">Password</label><input type="password" id="p" required>
+    <label class="ck" style="font-size:.9rem"><input type="checkbox" id="showp"> Show password</label>
+    <div class="err" id="lerr" role="alert"></div>
+    <button class="btn" style="width:100%;margin-top:6px" type="submit">Sign in as <span id="rl">student</span></button>
+  </form>
+  <form id="rf" autocomplete="off" style="display:none">
+    <label for="rname">Student full name</label><input type="text" id="rname" required>
+    <div class="two"><div><label for="rcls">Class</label><select id="rcls"></select></div><div><label for="rsid">New student ID</label><input type="text" id="rsid" required></div></div>
+    <label for="rspw">Student password</label><input type="password" id="rspw" required>
+        <label for="rpid">Parent ID</label><input type="text" id="rpid" required placeholder="e.g. PR4827">
+    <p class="mut" style="font-size:.85rem;margin:10px 0 0">Your parent gets their Parent ID by signing up in the Parent tab with their email. Your class teacher verifies the match before you can sign in.</p>
+    <div class="err" id="rerr" role="alert"></div>
+    <button class="btn" style="width:100%" type="submit">Send for verification</button>
+  </form>
+  <form id="tf" autocomplete="off" style="display:none">
+    <label for="tname">Full name (for example, Mr. Sharma)</label><input type="text" id="tname" required>
+    <div class="two"><div><label for="tid">Teacher ID</label><input type="text" id="tid" required></div><div><label for="tpw">Password</label><input type="password" id="tpw" required></div></div>
+    <label for="tcode">Special teacher code</label><input type="password" id="tcode" required>
+    <p class="mut" style="font-size:.85rem;margin:10px 0 0">Only school staff have the code. Ask your school administrator.</p>
+    <div class="err" id="terr" role="alert"></div>
+    <button class="btn" style="width:100%" type="submit">Create teacher account</button>
+  </form>
+  <form id="pf" autocomplete="off" style="display:none">
+    <label for="pname">Parent or guardian full name</label><input type="text" id="pname" required>
+    <label for="pemail">Email</label><input type="text" id="pemail" required inputmode="email" placeholder="name@example.com">
+    <label for="ppw">Password</label><input type="password" id="ppw" required>
+    <p class="mut" style="font-size:.85rem;margin:10px 0 0">We create a short, unique Parent ID for you. Your child enters it when registering, and the teacher uses it to link you.</p>
+    <div class="err" id="perr" role="alert"></div>
+    <button class="btn" style="width:100%" type="submit">Create parent account</button>
+  </form>
+  <div id="pdone" style="display:none">
+    <p>Your parent account is ready. Your unique Parent ID is:</p>
+    <p style="text-align:center"><span class="tok" id="pidShow" style="font-size:1.7rem;padding:6px 18px"></span></p>
+    <p class="mut">Give this ID to your child to enter when registering, and show it to the class teacher if asked. You can sign in with this ID or your email.</p>
+    <button class="btn" style="width:100%" id="pgo" type="button">Continue to sign in</button>
+  </div>
+  <div id="modeRow" style="margin-top:14px;font-size:.92rem"></div>
+</div></div>
+
+<!-- App -->
+<div id="app">
+  <div class="top"><div class="wrap">
+    <b style="font-family:Georgia,serif">EduSphere AI</b><span style="opacity:.7">DBRA CM Shri, Sector-17 Rohini</span>
+    <div class="who"><span id="whoName"></span><br><small id="whoRole" style="opacity:.75"></small></div>
+    <button class="btn sm" id="logout">Sign out</button>
+  </div></div>
+  <div class="wrap layout"><nav class="side" id="side" style="position:static;background:none;border:0;height:auto;backdrop-filter:none"></nav><main id="main"></main></div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ---------- Setup ---------- */
+// Note: this is a front-end demo. The hash below only keeps passwords out of plain sight; real security needs a server (e.g. Firebase Auth).
+const cyrb=s=>{let a=0xdeadbeef,b=0x41c6ce57;for(let i=0,c;i<s.length;i++){c=s.charCodeAt(i);a=Math.imul(a^c,2654435761);b=Math.imul(b^c,1597334677)}a=Math.imul(a^(a>>>16),2246822507)^Math.imul(b^(b>>>13),3266489909);b=Math.imul(b^(b>>>16),2246822507)^Math.imul(a^(a>>>13),3266489909);return(4294967296*(2097151&b)+(a>>>0)).toString(36)};
+const H=s=>cyrb('edu|'+s);
+const TEACHER={id:'akriti123',role:'teacher',name:'Ms. Akriti Gupta',pwh:'1wh85xt7ykh'};
+const mk=(g,n)=>'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.slice(0,n).split('').map(x=>g+'-'+x);
+const DEFAULT_CLASSES=[...mk(6,3),...mk(7,3),...mk(8,3),...mk(9,4),...mk(11,6),...mk(12,3)];
+const splitCls=c=>{const i=c.indexOf('-');return i<0?[c,'']:[c.slice(0,i),c.slice(i+1)]};
+const sortCls=a=>a.slice().sort((x,y)=>{const[gx,sx]=splitCls(x),[gy,sy]=splitCls(y);return(parseFloat(gx)||0)-(parseFloat(gy)||0)||gx.localeCompare(gy)||sx.localeCompare(sy)});
+const classes=()=>sortCls(DB.classes);
+const LESSONS=[['Pythagorean Theorem','Approved','86%'],['Quadratic Equations','Analyzing','n/a'],['Linear Functions','Draft','n/a']];
+const QUOTES=[['Arise, awake, and stop not till the goal is reached.','Swami Vivekananda'],['Education is the most powerful weapon which you can use to change the world.','Nelson Mandela'],['Dream is not that which you see while sleeping, it is that which does not let you sleep.','A. P. J. Abdul Kalam'],['The expert in anything was once a beginner.','Helen Hayes']];
+const qt=()=>{const q=QUOTES[new Date().getDate()%QUOTES.length];return `<p class="qt">“${q[0]}”<small>${q[1]}</small></p>`};
+
+/* ---------- Offensive language detection ---------- */
+const BAD=['stupid','idiot','dumb','moron','loser','fool','ugly','trash','bastard','shit','fuck','bitch','crap','damn','asshole','jerk','suck','hate you','shut up','pagal','bewakoof','gadha','kamina','harami','nalayak'];
+const SHORT=new Set(['ass','dumb','fool','suck','jerk','damn','crap']);
+function norm(s){return s.toLowerCase().replace(/0/g,'o').replace(/[1!|]/g,'i').replace(/3/g,'e').replace(/[4@]/g,'a').replace(/[5$]/g,'s').replace(/7/g,'t')}
+function scan(text){
+  let n=norm(text),hit=false;
+  const collapsed=n.replace(/[^a-z]/g,'');
+  const masked=text.replace(/\S+/g,w=>{
+    const t=norm(w).replace(/[^a-z]/g,'').replace(/(.)\1{2,}/g,'$1$1');
+    const bad=BAD.some(b=>!b.includes(' ')&&(SHORT.has(b)||b.length<5?t===b:t.includes(b)))||t==='ass';
+    if(bad){hit=true;return '*'.repeat(w.length)}return w});
+  if(!hit){
+    if(BAD.some(b=>b.length>=5&&collapsed.includes(b.replace(' ','')))) hit=true;
+    if(/\b(hate you|shut up)\b/.test(n)) hit=true;
+  }
+  return {flagged:hit,masked:hit&&masked===text?'[message hidden]':masked};
+}
+
+/* ---------- Storage ---------- */
+const KEY='edusphere_v2';
+let DB;
+function seed(){const t=Date.now();return{classes:DEFAULT_CLASSES.slice(),users:[],posts:[{id:1,token:'AQ-4821',cls:'8-B',text:'I still do not get why the hypotenuse is always the longest side. Can someone explain it simply?',author:'seed1',an:'Aarav Sharma',ts:t-7200000,flagged:false,replies:[{id:1,author:'seed2',an:'Diya Verma',role:'student',cls:'8-B',text:'It sits opposite the right angle, and the largest angle always faces the longest side.',ts:t-3600000,flagged:false}]}]}}
+function load(){try{DB=JSON.parse(localStorage.getItem(KEY))}catch(e){}if(!DB||!DB.posts||!DB.users)DB=seed();if(!Array.isArray(DB.classes))DB.classes=DEFAULT_CLASSES.slice();DB.users.forEach(u=>{if(u.cls&&!DB.classes.includes(u.cls))DB.classes.push(u.cls)})}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){}}
+load();
+
+/* ---------- Helpers ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const findUser=id=>{id=String(id||'').trim().toLowerCase();return id===TEACHER.id?TEACHER:DB.users.find(u=>String(u.id).toLowerCase()===id)};
+const nameFor=(id,an)=>{const u=findUser(id);return u?u.name:(an||'Unknown')};
+const when=ts=>new Date(ts).toLocaleString([], {dateStyle:'medium',timeStyle:'short'});
+let me=null,role='student',mode='in',tab='home',filter='all',parentDone=null;
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),5000)}
+function newToken(){let t;do{t='AQ-'+(1000+Math.floor(Math.random()*9000))}while(DB.posts.some(p=>p.token===t));return t}
+function ensureLink(s){ // add the student under the parent's account (creates it the first time)
+  let p=DB.users.find(x=>x.id===s.parentId&&x.role==='parent');
+  if(!p){if(!s.ppwh)return;p={id:s.parentId,role:'parent',name:s.parentName,pwh:s.ppwh,children:[]};DB.users.push(p)}
+  if(!p.children.includes(s.id))p.children.push(s.id);
+  delete s.ppwh;save();
+}
+
+/* ---------- Login and registration ---------- */
+const fillCls=()=>{const v=$('#rcls').value;$('#rcls').innerHTML=classes().map(c=>`<option>${esc(c)}</option>`).join('');if(v&&DB.classes.includes(v))$('#rcls').value=v};
+fillCls();
+function paint(){
+  document.querySelectorAll('#roleTabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.role===role));
+  $('#rl').textContent=role;['lerr','rerr','terr','perr'].forEach(i=>$('#'+i).textContent='');
+  const reg=mode==='reg',st=role==='student',pa=role==='parent';
+  $('#lf').style.display=reg?'none':'';
+  $('#rf').style.display=reg&&st?'':'none';
+  $('#tf').style.display=reg&&role==='teacher'?'':'none';
+  $('#pf').style.display=reg&&pa&&!parentDone?'':'none';
+  $('#pdone').style.display=reg&&pa&&parentDone?'':'none';
+  $('#pidShow').textContent=parentDone?parentDone.toUpperCase():'';
+  $('#lt').textContent=reg?(st?'Register as a student':pa?(parentDone?'Parent ID created':'Parent sign-up'):'Teacher sign-up'):'Sign in';
+  $('#ul').textContent=pa?'Parent ID or email':'Username';
+  $('#modeRow').innerHTML=reg?'Already have an account? <button type="button" data-mode="in">Sign in</button>':(st?'New student? <button type="button" data-mode="reg">Register with your parent’s ID</button>':pa?'New parent? <button type="button" data-mode="reg">Sign up with your email</button>':'New teacher? <button type="button" data-mode="reg">Sign up with the school code</button>');
+  if(reg&&st)fillCls();
+}
+function setRole(r){role=r;parentDone=null;paint()}
+document.querySelectorAll('[data-open-login]').forEach(b=>b.onclick=()=>{$('#login').classList.add('on');paint();(mode==='reg'?(role==='teacher'?$('#tname'):role==='student'?$('#rname'):$('#pname')):$('#u')).focus()});
+$('#closeLogin').onclick=()=>$('#login').classList.remove('on');
+$('#login').addEventListener('click',e=>{if(e.target.id==='login')e.target.classList.remove('on')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#login').classList.remove('on')});
+$('#roleTabs').onclick=e=>{if(e.target.dataset.role)setRole(e.target.dataset.role)};
+$('#modeRow').onclick=e=>{if(e.target.dataset.mode){mode=e.target.dataset.mode;parentDone=null;paint()}};
+$('#showp').onchange=e=>$('#p').type=e.target.checked?'text':'password';
+$('#demoBtn').onclick=()=>toast('Thanks! In the live site this sends your request to our team.');
+
+// Sign in: no format rules and no lockout. If the ID and password match, you are in.
+$('#lf').onsubmit=e=>{
+  e.preventDefault();const err=$('#lerr'),key=$('#u').value.trim().toLowerCase();
+  let u=findUser(key);
+  if(role==='parent'&&(!u||u.role!=='parent'))u=DB.users.find(x=>x.role==='parent'&&x.email===key)||u;
+  if(!u||u.role!==role||u.pwh!==H($('#p').value)){err.textContent='ID or password is wrong for the '+role+' portal.';return}
+  if(u.role==='student'&&u.status!=='approved'){
+    err.textContent=u.status==='pending'?'Your ID is waiting for verification by Ms. Akriti Gupta. Try again after she approves it.':'Your registration was not approved. Please meet your class teacher.';return;
+  }
+  if(u.role==='student')ensureLink(u);
+  me=u;$('#login').classList.remove('on');$('#lf').reset();tab='home';filter='all';openApp();
+};
+
+$('#rf').onsubmit=e=>{
+  e.preventDefault();const err=$('#rerr'),g=i=>$('#'+i).value.trim();
+  const sid=g('rsid').toLowerCase(),par=findUser(g('rpid'));
+  if(!$('#rcls').value)return err.textContent='No classes are set up yet. Please ask your teacher.';
+  if(findUser(sid))return err.textContent='That student ID is already taken. Choose another.';
+  if(!par||par.role!=='parent')return err.textContent='No parent account has that Parent ID. Ask your parent to sign up in the Parent tab and share their ID.';
+  DB.users.push({id:sid,role:'student',name:g('rname'),cls:$('#rcls').value,pwh:H($('#rspw').value),parentId:par.id,parentName:par.name,status:'pending',ts:Date.now()});
+  save();$('#rf').reset();fillCls();mode='in';paint();
+  toast('Registration sent. You can sign in after Ms. Akriti Gupta verifies your ID.');
+};
+$('#tf').onsubmit=e=>{
+  e.preventDefault();const err=$('#terr'),id=$('#tid').value.trim().toLowerCase();
+  if(H($('#tcode').value.trim())!==H('2026'))return err.textContent='That teacher code is not correct.';
+  if(!id)return err.textContent='Enter an ID.';
+  if(findUser(id))return err.textContent='That ID is already taken. Choose another.';
+  DB.users.push({id,role:'teacher',name:$('#tname').value.trim(),pwh:H($('#tpw').value),ts:Date.now()});
+  save();$('#tf').reset();mode='in';paint();toast('Teacher account created. Sign in with your ID and password.');
+};
+function newParentId(){let t;do{t='pr'+(1000+Math.floor(Math.random()*9000))}while(findUser(t));return t}
+$('#pf').onsubmit=e=>{
+  e.preventDefault();const err=$('#perr'),name=$('#pname').value.trim(),email=$('#pemail').value.trim().toLowerCase();
+  if(!/^\S+@\S+\.\S+$/.test(email))return err.textContent='Enter a valid email address, for example name@example.com.';
+  if(DB.users.some(u=>u.role==='parent'&&u.email===email))return err.textContent='An account with this email already exists. Sign in instead.';
+  const id=newParentId();
+  DB.users.push({id,role:'parent',name,email,pwh:H($('#ppw').value),children:[],ts:Date.now()});
+  save();$('#pf').reset();parentDone=id;paint();
+};
+$('#pgo').onclick=()=>{const id=parentDone;parentDone=null;mode='in';paint();$('#u').value=id.toUpperCase();$('#p').focus()};
+$('#logout').onclick=()=>{me=null;$('#app').classList.remove('on');$('#site').style.display='';window.scrollTo(0,0)};
+
+/* ---------- App shell ---------- */
+const pendingCount=()=>DB.users.filter(u=>u.role==='student'&&u.status==='pending').length;
+function openApp(){
+  $('#site').style.display='none';$('#app').classList.add('on');
+  $('#whoName').textContent=me.name;
+  const kids=me.role==='parent'?DB.users.filter(u=>me.children.includes(u.id)).map(k=>k.name).join(', '):'';
+  $('#whoRole').textContent=me.role==='student'?'Student · Class '+me.cls:me.role==='teacher'?'Class teacher':'Parent · ID '+me.id.toUpperCase();
+  const n=pendingCount();
+  const items={student:[['home','My lessons'],['anon','Curiosity Hub']],teacher:[['home','Overview'],['verify','Verify students'+(n?` (${n})`:'')],['classes','Classes'],['parents','Parents'],['anon','Curiosity Hub']],parent:[['home','My children'],['conduct','Conduct notices']]}[me.role];
+  $('#side').innerHTML=items.map(([k,l])=>`<button data-tab="${k}" class="${k===tab?'on':''}">${l}</button>`).join('');
+  render();
+}
+$('#side').onclick=e=>{if(e.target.dataset.tab){tab=e.target.dataset.tab;openApp()}};
+
+function visiblePosts(){
+  if(me.role==='student')return DB.posts.filter(p=>p.cls===me.cls);
+  return DB.posts.filter(p=>filter==='all'||p.cls===filter);
+}
+function repHtml(r){
+  const t=r.role==='teacher',nm=esc(nameFor(r.author,r.an));
+  if(r.flagged)return `<div class="rep fl"><div class="meta"><span class="pill">Class ${esc(r.cls)}</span>${when(r.ts)}</div><p class="masked">${esc(r.masked)}</p><div class="flag">⚠ Offensive language detected. Reply posted by <b>${nm}</b>.</div></div>`;
+  return `<div class="rep ${t?'t':''}"><div class="meta">${t?`<span class="pill">Teacher · ${nm}</span>`:`<span class="pill">Class ${esc(r.cls)} student</span>`}${when(r.ts)}</div><p style="margin:0">${esc(r.text)}</p></div>`;
+}
+function postHtml(p){
+  const mine=me.role==='student'&&p.author===me.id&&!p.flagged,nm=esc(nameFor(p.author,p.an));
+  const body=p.flagged
+   ?`<p class="masked">${esc(p.masked)}</p><div class="flag">⚠ Offensive language detected. Anonymity removed. Posted by <b>${nm}</b> (Class ${esc(p.cls)}).</div>`
+   :`<p style="margin:0">${esc(p.text)}</p>`;
+  return `<article class="post ${p.flagged?'fl':''}"><div class="meta"><span class="tok">${p.token}</span>${p.flagged?`<b style="color:var(--red)">${nm}</b>`:'<span>Anonymous</span>'}<span class="pill">Class ${esc(p.cls)}</span>${mine?'<span class="pill" style="background:var(--gold);color:var(--ink)">Your question</span>':''}<span>${when(p.ts)}</span></div>${body}${p.replies.map(repHtml).join('')}<div class="rf"><input type="text" aria-label="Reply to ${p.token}" placeholder="${me.role==='teacher'?'Reply as teacher':'Reply as a Class '+esc(me.cls||'')+' student'}" data-rin="${p.id}"><button class="btn sm" data-reply="${p.id}">Reply</button></div></article>`;
+}
+function classesHtml(){
+  const groups={};classes().forEach(c=>{const g=splitCls(c)[0];(groups[g]=groups[g]||[]).push(c)});
+  const cnt=c=>DB.users.filter(u=>u.role==='student'&&u.cls===c&&u.status!=='rejected').length;
+  return `<h2>Classes and sections</h2><p class="mut">Add, rename or remove classes. Students pick from this list when they register, and the Curiosity Hub filter uses it too. Renaming a class moves its students and questions with it.</p><div class="card" style="margin-bottom:18px"><h3>Add a class or section</h3><div class="row" style="align-items:end"><div><label for="ng">Class</label><input type="text" id="ng" placeholder="e.g. 4" style="width:110px"></div><div><label for="ns">Section</label><input type="text" id="ns" placeholder="e.g. B" style="width:110px"></div><button class="btn" id="cadd">Add</button></div></div>`
+  +Object.keys(groups).map(g=>`<div class="card" style="margin-bottom:14px"><div class="row" style="justify-content:space-between;align-items:center"><h3 style="margin:0">Class ${esc(g)} · ${groups[g].length} section${groups[g].length>1?'s':''}</h3><button class="btn alt sm" data-cnext="${esc(g)}">+ Next section</button></div>`+groups[g].map(c=>{const[gg,sc]=splitCls(c),n=cnt(c);return `<div class="crow"><input type="text" data-cg="${esc(c)}" value="${esc(gg)}" aria-label="Class for ${esc(c)}"><b>-</b><input type="text" data-cs="${esc(c)}" value="${esc(sc)}" aria-label="Section for ${esc(c)}"><span class="n">${n} student${n===1?'':'s'}</span><button class="btn sm" data-csave="${esc(c)}">Save</button><button class="btn alt sm" data-cdel="${esc(c)}">Remove</button></div>`}).join('')+`</div>`).join('');
+}
+function parentsHtml(){
+  const ps=DB.users.filter(u=>u.role==='parent');
+  const kids=p=>DB.users.filter(x=>x.role==='student'&&x.parentId===p.id&&x.status!=='rejected').map(x=>esc(x.name)+' ('+esc(x.cls)+')'+(x.status==='pending'?' · awaiting verification':'')).join('<br>')||'<span class="mut">No child yet</span>';
+  return `<h2>Parent accounts</h2><p class="mut">Each parent gets a unique Parent ID when they sign up with their email. Students enter it when they register, and you verify the match.</p>`+(ps.length?`<div class="card" style="overflow-x:auto"><table><tr><th>Parent ID</th><th>Name</th><th>Email</th><th>Children</th></tr>${ps.map(p=>`<tr><td><span class="tok">${esc(p.id.toUpperCase())}</span></td><td>${esc(p.name)}</td><td>${esc(p.email||'—')}</td><td>${kids(p)}</td></tr>`).join('')}</table></div>`:'<div class="card">No parent has signed up yet.</div>');
+}
+const statCard=(b,s,c)=>`<div class="card stat"><b style="color:${c||'inherit'}">${b}</b><span>${s}</span></div>`;
+const lessonTable=()=>`<div class="card"><h3>Lessons</h3><table><tr><th>Lesson</th><th>Status</th><th>Quiz</th></tr>${LESSONS.map(l=>`<tr><td>${l[0]}</td><td>${l[1]}</td><td>${l[2]}</td></tr>`).join('')}</table></div>`;
+const flaggedBy=id=>{const o=[];DB.posts.forEach(p=>{if(p.flagged&&p.author===id)o.push(['Question '+p.token,p.ts]);p.replies.forEach(r=>{if(r.flagged&&r.author===id)o.push(['Reply on '+p.token,r.ts])})});return o};
+
+function render(){
+  const m=$('#main');let h=qt();
+  if(me.role==='student'&&tab==='home'){
+    const asked=DB.posts.filter(p=>p.author===me.id).length,rep=DB.posts.reduce((a,p)=>a+p.replies.filter(r=>r.author===me.id).length,0);
+    h+=`<h2>Hello, ${esc(me.name.split(' ')[0])}.</h2><div class="stats">${statCard('Class '+me.cls,'Your section')}${statCard(asked,'Questions you asked')}${statCard(rep,'Classmates you helped')}</div>`+lessonTable();
+  }else if(me.role==='teacher'&&tab==='home'){
+    const open=DB.posts.filter(p=>!p.replies.some(r=>r.role==='teacher')).length,fl=DB.posts.filter(p=>p.flagged).length+DB.posts.reduce((a,p)=>a+p.replies.filter(r=>r.flagged).length,0);
+    h+=`<h2>Good day, ${esc(me.name)}.</h2><div class="stats">${statCard(pendingCount(),'Students to verify',pendingCount()?'var(--teal)':'')}${statCard(open,'Questions awaiting reply')}${statCard(fl,'Flagged messages',fl?'var(--red)':'')}${statCard(DB.classes.length,'Classes and sections')}${statCard(DB.users.filter(u=>u.role==='parent').length,'Parent accounts')}</div>`+lessonTable();
+  }else if(me.role==='teacher'&&tab==='verify'){
+    const pend=DB.users.filter(u=>u.role==='student'&&u.status==='pending'),done=DB.users.filter(u=>u.role==='student'&&u.status!=='pending');
+    h+=`<h2>Verify new students</h2><p class="mut">Check each name, class and ID against your records. Approving also adds the student under the parent’s account.</p>`;
+    h+=pend.length?pend.map(s=>{const ex=DB.users.find(x=>x.id===s.parentId&&x.role==='parent');return `<div class="post"><div class="meta"><span class="pill">Class ${esc(s.cls)}</span><span>Registered ${when(s.ts)}</span></div><table><tr><th>Student</th><td>${esc(s.name)} · ID <b>${esc(s.id)}</b></td></tr><tr><th>Parent</th><td>${esc(s.parentName)} · ID <b>${esc(String(s.parentId).toUpperCase())}</b>${ex&&ex.email?' · '+esc(ex.email):''}${ex?' · account found, child will be linked on approval':''}</td></tr></table><div class="row" style="margin-top:12px"><button class="btn sm" data-appr="${esc(s.id)}">Approve</button><button class="btn alt sm" data-rej="${esc(s.id)}">Reject</button></div></div>`}).join(''):'<div class="card">No students are waiting for verification.</div>';
+    if(done.length)h+=`<div class="card" style="margin-top:18px"><h3>Already decided</h3><table><tr><th>Student</th><th>Class</th><th>Parent</th><th>Status</th></tr>${done.map(s=>`<tr><td>${esc(s.name)} (${esc(s.id)})</td><td>${esc(s.cls)}</td><td>${esc(s.parentName)}</td><td>${s.status==='approved'?'Verified':'Rejected'}</td></tr>`).join('')}</table></div>`;
+  }else if(me.role==='teacher'&&tab==='classes'){
+    h+=classesHtml();
+  }else if(me.role==='teacher'&&tab==='parents'){
+    h+=parentsHtml();
+  }else if(me.role==='parent'&&tab==='home'){
+    const kids=DB.users.filter(u=>me.children.includes(u.id));
+    const pend=DB.users.filter(x=>x.role==='student'&&x.parentId===me.id&&x.status==='pending');
+    h+=`<h2>${esc(me.name)}</h2><div class="card" style="margin-bottom:14px"><span class="mut">Your Parent ID</span><div style="margin:6px 0"><span class="tok" style="font-size:1.4rem;padding:4px 14px">${esc(me.id.toUpperCase())}</span></div><p class="mut" style="margin:0;font-size:.9rem">Your child enters this ID when registering. The class teacher verifies it and links you together.</p></div>`+kids.map(k=>`<div class="card" style="margin-bottom:14px"><h3>${esc(k.name)}</h3><p class="mut" style="margin:0">Class ${esc(k.cls)} · Student ID ${esc(k.id)} · Verified by class teacher</p><p style="margin:.8em 0 0">Marks and attendance will appear here once your teacher uploads them.</p></div>`).join('')+pend.map(k=>`<div class="card" style="margin-bottom:14px"><h3>${esc(k.name)}</h3><p class="mut" style="margin:0">Class ${esc(k.cls)} · Waiting for teacher verification</p></div>`).join('')+(kids.length||pend.length?'':'<div class="card">No child is linked yet. Share your Parent ID with your child so they can register.</div>');
+  }else if(me.role==='parent'){
+    const kids=DB.users.filter(u=>me.children.includes(u.id));
+    h+=`<h2>Conduct notices</h2><p class="mut">You are notified when your child uses offensive language in the Curiosity Hub.</p>`+kids.map(k=>{const f=flaggedBy(k.id);return `<h3>${esc(k.name)}</h3>`+(f.length?f.map(i=>`<div class="post fl"><b>${i[0]}</b><div class="flag">Offensive language detected on ${when(i[1])}.</div></div>`).join(''):'<div class="card" style="margin-bottom:14px">No notices. Everything is respectful so far.</div>')}).join('');
+  }else{
+    h+=`<h2>Curiosity Hub</h2><div class="rules"><b>Keep it respectful.</b> Questions are anonymous and get a token number. Offensive or abusive language is detected automatically. When it is, the message is hidden and your real name is shown to the class and teacher${me.role==='student'?', and your parent is notified':''}.</div>`;
+    if(me.role==='student'){
+      h+=`<div class="card" style="margin-bottom:18px"><h3>Ask your teacher</h3><label for="q">Your question (visible to Class ${esc(me.cls)} and the teacher)</label><textarea id="q" maxlength="500"></textarea><label class="ck"><input type="checkbox" id="agree"> I will not use offensive or abusive language, and I understand my name is revealed if I do.</label><button class="btn" id="ask">Post anonymously</button></div>`;
+    }else{
+      h+=`<div class="row" style="margin-bottom:14px;align-items:center"><label for="flt" style="margin:0">Class</label><select id="flt" style="width:auto"><option value="all">All classes</option>${classes().map(c=>`<option ${filter===c?'selected':''}>${c}</option>`).join('')}</select></div>`;
+    }
+    const ps=visiblePosts().slice().sort((a,b)=>b.ts-a.ts);
+    h+=ps.length?ps.map(postHtml).join(''):'<div class="card">No questions yet. Be the first to ask.</div>';
+  }
+  m.innerHTML=h;
+  const f=$('#flt');if(f)f.onchange=()=>{filter=f.value;render()};
+}
+
+/* ---------- Actions ---------- */
+$('#main').addEventListener('click',e=>{
+  const d=e.target.dataset;
+  if(d.appr||d.rej){
+    const s=DB.users.find(x=>x.id===(d.appr||d.rej));if(!s)return;
+    if(d.appr){s.status='approved';ensureLink(s);toast(s.name+' is verified and added under '+s.parentName+'’s account.')}
+    else{s.status='rejected';delete s.ppwh;toast(s.name+'’s registration was rejected.')}
+    save();openApp();return;
+  }
+  if(d.cnext){const g=d.cnext;for(const L of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'){if(!DB.classes.includes(g+'-'+L)){DB.classes.push(g+'-'+L);save();toast('Added Class '+g+'-'+L+'.');return render()}}return toast('Every section A to Z already exists for Class '+g+'.')}
+  if(e.target.id==='cadd'){
+    const g=$('#ng').value.trim(),sc=$('#ns').value.trim().toUpperCase();
+    if(!g||!sc)return toast('Enter both a class (for example 4) and a section (for example B).');
+    if(g.includes('-')||sc.includes('-'))return toast('Please do not use a dash in the class or section.');
+    if(DB.classes.includes(g+'-'+sc))return toast('Class '+g+'-'+sc+' already exists.');
+    DB.classes.push(g+'-'+sc);save();toast('Added Class '+g+'-'+sc+'.');return render();
+  }
+  if(d.csave){
+    const old=d.csave,gi=[...document.querySelectorAll('[data-cg]')].find(x=>x.dataset.cg===old),si=[...document.querySelectorAll('[data-cs]')].find(x=>x.dataset.cs===old);
+    const g=gi.value.trim(),sc=si.value.trim().toUpperCase(),nw=g+'-'+sc;
+    if(!g||!sc)return toast('Class and section cannot be empty.');
+    if(g.includes('-')||sc.includes('-'))return toast('Please do not use a dash in the class or section.');
+    if(nw===old)return toast('Nothing changed.');
+    if(DB.classes.includes(nw))return toast('Class '+nw+' already exists.');
+    DB.classes[DB.classes.indexOf(old)]=nw;
+    DB.users.forEach(u=>{if(u.cls===old)u.cls=nw});
+    DB.posts.forEach(x=>{if(x.cls===old)x.cls=nw;x.replies.forEach(r=>{if(r.cls===old)r.cls=nw})});
+    if(filter===old)filter=nw;
+    save();toast('Class '+old+' is now '+nw+'.');return render();
+  }
+  if(d.cdel){
+    const n=DB.users.filter(u=>u.role==='student'&&u.cls===d.cdel&&u.status!=='rejected').length;
+    if(n)return toast('Class '+d.cdel+' still has '+n+' student'+(n>1?'s':'')+'. Rename it instead, or remove it once it is empty.');
+    DB.classes=DB.classes.filter(c=>c!==d.cdel);if(filter===d.cdel)filter='all';
+    save();toast('Class '+d.cdel+' removed.');return render();
+  }
+  if(e.target.id==='ask'){
+    const q=$('#q').value.trim();
+    if(q.length<10)return toast('Write at least 10 characters so your teacher can help.');
+    if(!$('#agree').checked)return toast('Tick the respect agreement before posting.');
+    const s=scan(q),p={id:Date.now(),token:newToken(),cls:me.cls,text:q,author:me.id,an:me.name,ts:Date.now(),flagged:s.flagged,masked:s.masked,replies:[]};
+    DB.posts.push(p);save();
+    toast(s.flagged?'Offensive language detected. Your name is now shown on this post.':'Posted anonymously. Your token is '+p.token+'.');
+    render();
+  }
+  if(d.reply){
+    const inp=document.querySelector(`[data-rin="${d.reply}"]`),txt=inp.value.trim();
+    if(!txt)return toast('Type a reply first.');
+    const p=DB.posts.find(x=>x.id==d.reply),isT=me.role==='teacher',s=isT?{flagged:false}:scan(txt);
+    p.replies.push({id:Date.now(),author:me.id,an:me.name,role:me.role,cls:me.cls||'',text:txt,masked:s.masked,flagged:s.flagged,ts:Date.now()});
+    save();toast(s.flagged?'Offensive language detected. Your name is now shown on this reply.':'Reply posted.');render();
+  }
+});
+$('#heroQ').innerHTML=qt();
+
+</script>
+</body>
+</html>
